@@ -55,7 +55,7 @@ const MyApartmentsPage = ({ apartments, storagePath }) => {
         ) : (
           <>
             <p className='text-center text-gray-600 text-lg'>
-              {t('myApartment.noApartment')}
+              {t('myApartment.noApartments')}
             </p>
             <InertiaLink href={route('apartment.create')} className='mt-4'>
               Mettez votte bien à disposition dès maintenant

@@ -1,10 +1,14 @@
+import { t } from 'i18next';
 import React from 'react';
 
 import SimpleButton from '@/Components/Buttons/SimpleButton';
+import Table from '@/Components/Table';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const ServicesPage = ({ service }) => {
-  console.log(service);
+import useColumns from './useColumns';
+
+const ServicesPage = ({ services }) => {
+  const columns = useColumns();
 
   return (
     <AuthenticatedLayout
@@ -15,27 +19,16 @@ const ServicesPage = ({ service }) => {
         </h2>
       }
     >
-      <div>
-        <ul>
-          {service && service.length > 0 ? (
-            service.map((item) => (
-              <li key={item.id}>
-                <br />
-                <input type='hidden' id='id' name='id' value={item.id}></input>
-                {item.categorie} {item.nom}{' '}
-                <SimpleButton to={route('service.provider.add', item.id)}>
-                  Proposer service
-                </SimpleButton>
-              </li>
-            ))
-          ) : (
-            <li>No services available</li>
-          )}
-          <br />
-          <SimpleButton to={route('service.create')}>
-            Nouveau service
-          </SimpleButton>
-        </ul>
+      <SimpleButton className='flex justify-end' to={route('service.create')}>
+        Nouveau service
+      </SimpleButton>
+
+      <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
+        <Table
+          columns={columns}
+          data={services}
+          placeholder={t('service.noServices')}
+        />
       </div>
     </AuthenticatedLayout>
   );

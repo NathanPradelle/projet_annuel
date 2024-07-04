@@ -7,6 +7,7 @@ import DropdownButton from '../Buttons/DropdownButton';
 
 const SimpleList = ({
   id,
+  className,
   setData,
   label,
   options,
@@ -31,6 +32,7 @@ const SimpleList = ({
 
   return (
     <DropdownButton
+      buttonClass={className}
       trigger={
         <>
           <InputLabel htmlFor={id} value={label} className={styles?.label} />
