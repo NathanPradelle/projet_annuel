@@ -2,8 +2,6 @@ import { Link } from '@inertiajs/react';
 import { t } from 'i18next';
 import { useMemo } from 'react';
 
-import { getProfileLabel } from '@/utils/user';
-
 const useColumns = () => {
     const columns = useMemo(
         () => [
@@ -14,36 +12,20 @@ const useColumns = () => {
                 renderCell: (row) => row?.id,
             },
             {
-                    field: 'name',
-                headerName: 'Nom',
-                valueGetter: (row) => row?.name,
-                renderCell: (row) => row?.name,
+                    field: 'objet',
+                headerName: 'TITRE',
+                valueGetter: (row) => row?.objet,
+                renderCell: (row) => row?.objet,
             },
-            {
-                field: 'email',
-                headerName: 'Email',
-                valueGetter: (row) => row?.email,
-                renderCell: (row) => row?.email,
-            },
-            {
-                field: 'profiles',
-                headerName: 'Role',
-                valueGetter: (row) => row?.profileInUse,
-                renderCell: (row) => getProfileLabel(row?.profileInUse),
-            },
+            // {
+            //     field: 'category',
+            //     headerName: 'CATEGORY',
+            //     valueGetter: (row) => row?.category,
+            //     renderCell: (row) => row?.category,
+            // },
             {
                 renderCell: (row) => (
-                    <Link href={route('user', row?.id)}>{t('common.details')}</Link>
-                ),
-            },
-            {
-                renderCell: (row) => (
-                    <a
-                        href={route('user.exclude', { user: row?.id })}
-                        className='text-red-600 hover:text-red-900'
-                    >
-                        RGPD
-                    </a>
+                    <Link href={route('tickets.index', row?.id)}>{t('common.details')}</Link>
                 ),
             },
         ],

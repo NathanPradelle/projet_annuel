@@ -3,8 +3,11 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import { Head } from "@inertiajs/react";
 import { InertiaLink } from '@inertiajs/inertia-react';
 import SimpleButton from "@/Components/Buttons/SimpleButton";
+import {getCurrentUser} from '@/utils/user';
+
 
 const Contact = () => {
+    const currentUser = getCurrentUser();
     return (
         <AuthenticatedLayout>
             <Head title='Contact' />
@@ -32,7 +35,7 @@ const Contact = () => {
                 <div className="border-l border-gray-300 h-full mx-4"></div>
                 <div className="flex-col gap-2 items-center justify-center w-1/2">
                     <SimpleButton to={route('ticket.create')}>Envoyer un ticket à GPCS</SimpleButton>
-                    <SimpleButton to={route('ticket.create')}>Voir ses tickets</SimpleButton>
+                    <SimpleButton to={route('tickets.index', currentUser.id)}>Voir ses tickets</SimpleButton>
                 </div>
             </div>
         </AuthenticatedLayout>

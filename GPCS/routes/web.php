@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/contact', [TicketController::class, 'contact'])->name('contact.show');
     Route::get('/ticket/create', [TicketController::class, 'create'])->name('ticket.create');
     Route::post('/ticket', [TicketController::class, 'store'])->name('ticket.store');
+    Route::get('/tickets/{Id}', [TicketController::class, 'customerIndex'])->name('tickets.index');
+    Route::get('/ticket/{id}', [TicketController::class, 'show'])->name('ticket.show');
 
     Route::post('/userProfile', [UserController::class, 'profileToUse'])->name('user.profileToUse');
 
@@ -68,7 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/{id}/ban', [BanController::class, 'addban']);
         Route::get('/user/{id}/ban/list', [BanController::class, 'banlist']);
     });
-    
+
     Route::post('/service/create', [ServiceController::class, 'create'])->name('service.creates');
     Route::get('/service/addprovider/{id}', [ServiceController::class, 'addprovider'])->name('service.provider.add');
     Route::post('/service/addprovider', [ServiceController::class, 'addProviderVerif'])->name('service.addprovider.post');

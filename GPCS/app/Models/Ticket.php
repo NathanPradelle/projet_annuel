@@ -29,4 +29,20 @@ class Ticket extends Model
         return $this->HasMany(Ticket_note::class);
     }
 
+    public function modelSetter()
+    {
+        $ticket = [
+            'id' => $this?->id,
+            'ticket_category_id' => $this?->ticket_category_id,
+            'objet' => $this?->objet,
+            'description' => $this?->description,
+            'status' => $this?->status,
+            'user_id' => $this?->user_id,
+            'createdAt' =>  $this?->created_at,
+            'updatedAt' =>  $this?->updated_at,
+        ];
+
+        return $ticket;
+    }
+
 }

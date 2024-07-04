@@ -54,7 +54,7 @@ class TicketController extends Controller
         $ticket->description = $validateData['description'];
         $ticket->save();
 
-        return redirect()->route('dashboard')->with('success', 'TicketCreationPage créé avec succès!');
+        return redirect()->route('ticket.index', $validateData['user_id'])->with('success', 'TicketCreationPage créé avec succès!');
     }
     /**
      * Display the specified resource.
@@ -128,6 +128,11 @@ class TicketController extends Controller
             ->latest()
             ->paginate(25);
 
-        return Inertia::render(FilePaths::TICKET_INDEX, $tickets);
+        $formattedTickets = $tickets->map(function ($ticket) {
+            return $ticket->modelSetter();
+        });
+
+        return Inertia::render(FilePaths::TICKET_INDEX, [
+            'tickets'=>$formattedTickets]);
     }
 }
