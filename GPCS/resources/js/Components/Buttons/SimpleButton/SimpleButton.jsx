@@ -48,7 +48,7 @@ const SimpleButton = ({
       <Link
         href={to}
         target={target}
-        className='redirection-button-link'
+        className={clsx('redirection-button-link', className)}
         {...props}
       >
         {button}

@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('price_service', function (Blueprint $table) {
+        Schema::create('provider_services', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            //$table->foreign('service_id')->references('id')->on('');
-            $table->string('rule')->default('default');//semaine/week-end/ete/hiver/etc
-            $table->timestamp('update_date');
-            $table->float('prix',10)->nullable();
+            $table->integer('user_id');
+            $table->integer('service_id');
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('price_service');
+        Schema::dropIfExists('provider_services');
     }
 };

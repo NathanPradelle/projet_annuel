@@ -19,7 +19,7 @@ const SimpleField = ({
 }) => {
   const onChangeInput = useCallback(
     (e) => {
-      setData && setData(id, e);
+      setData && setData(id, e.target.value);
       onChange && onChange(e);
     },
     [onChange, setData]

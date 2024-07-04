@@ -48,7 +48,6 @@ const DropMenu = () => {
           </svg>
         </button>
       }
-      buttonClass='nav-link'
       content={
         <>
           <NavLink href={route('profile.edit')}>Profile</NavLink>

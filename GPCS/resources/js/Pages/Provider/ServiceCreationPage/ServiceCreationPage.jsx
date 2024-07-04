@@ -24,8 +24,8 @@ const options = [
     label: 'variable',
   },
 ];
-const ServiceFeePage = ({ service }) => {
-  const { data, setData, post, errors } = useForm({ ...service, categorie: 1 });
+const ServiceCreationPage = () => {
+  const { data, setData, post, errors } = useForm({ label: '', category: 1 });
 
   const onSubmit = useCallback(
     (e) => {
@@ -47,19 +47,19 @@ const ServiceFeePage = ({ service }) => {
       <div>
         <form method='POST' action='/service/create'>
           <SimpleList
-            id='categorie'
+            id='category'
             setData={setData}
             label='Profile utilisé'
             options={options}
             styles={{ label: 'nav-input', option: 'nav-option' }}
           />
           <SimpleField
-            id='nom'
+            id='label'
+            setData={setData}
             type='string'
-            value={data.nom}
+            value={data.label}
             label={'nom'}
-            onChange={(e) => setData('nom', e.target.value)}
-            errorMessage={errors.nom}
+            errorMessage={errors.label}
             required
           />
           <SimpleButton type='submit' onClick={onSubmit}>
@@ -71,4 +71,4 @@ const ServiceFeePage = ({ service }) => {
   );
 };
 
-export default ServiceFeePage;
+export default ServiceCreationPage;

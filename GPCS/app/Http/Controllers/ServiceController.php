@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\service;
-use App\Models\provider_service;
+use App\Models\provider_services;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use FilePaths;
@@ -15,15 +15,27 @@ class ServiceController extends Controller
     }
     public function create(Request $request){
         $service = new service();
-        $service->categorie=$request['categorie'];
-        $service->nom=$request['nom'];
+        $service->label=$request['label'];
+        $service->category=$request['category'];
         dd($service->save());
     }
 
+    /// <summary>
+    /// Get all services.
+    /// </summary>
     public function list(){
-        $service = Service::all();
+        $services = Service::all();
         //dd($service);
-        return Inertia::render(FilePaths::SERVICE, ['service' => $service]);
+        return Inertia::render(FilePaths::SERVICE, ['services' => $services]);
+    }
+
+    /// <summary>
+    /// Get services of a provider.
+    /// </summary>
+    public function myServices(){
+        $services = Service::all();
+        // TODO
+        return Inertia::render(FilePaths::SERVICE, ['services' => $services]);
     }
 
     public function addprovider($id){
@@ -32,7 +44,7 @@ class ServiceController extends Controller
 
     public function addProviderPage(Request $request){
         //dd($request);
-        $service_provider = new provider_service();
+        $service_provider = new provider_services();
         $service_provider->user_id = $request['user_id'];
         $service_provider->service_id = $request['service_id'];
         //dd($service_provider);
@@ -41,7 +53,7 @@ class ServiceController extends Controller
     }
 
     public function addProviderVerif(Request $request){
-        $service_provider = new provider_service();
+        $service_provider = new provider_services();
         dd($request);
         $service_provider->user_id = 1;
         $service_provider->service_id = 1;

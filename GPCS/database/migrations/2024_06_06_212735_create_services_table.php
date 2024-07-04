@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('price_appartement', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->String('label');
+            $table->String('category');
             $table->timestamps();
-            $table->foreignId('apartments_id')->references('id')->on('apartments');
-            $table->string('rule')->default('default');//semaine/week-end/ete/hiver/etc
-            $table->timestamp('update_date');
-            $table->float('prix',10)->nullable();
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('price_appartement');
+        Schema::dropIfExists('services');
     }
 };

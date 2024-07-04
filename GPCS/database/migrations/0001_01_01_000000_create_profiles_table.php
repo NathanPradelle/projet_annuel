@@ -12,14 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profile', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description');
             $table->timestamp('created_at')->useCurrent();
         });
 
-        DB::table('profile')->insert(
+        DB::table('profiles')->insert(
             array(
                 [
                     'id' => 1,
@@ -48,18 +48,6 @@ return new class extends Migration
                 ],
             )
         );
-
-        Schema::create('user_profiles', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user')->references('id')->on('users');
-            $table->foreignId('profile')->references('id')->on('profile');
-        });
-
-        DB::statement("INSERT INTO user_profiles (user, profile) SELECT id, role FROM users");
-
-        DB::statement("ALTER TABLE users DROP COLUMN role");
-
-        Schema::dropIfExists('role');
     }
 
     /**
@@ -67,27 +55,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::create('role', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('name');
-        });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('role')->nullable();
-        });
-
-        DB::statement("UPDATE users SET role = (
-            SELECT profile FROM user_profiles 
-            WHERE user_profiles.user = users.id 
-            LIMIT 1
-        )");
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('role')->nullable(false)->change();
-        });
-
-        Schema::dropIfExists('user_profiles');
-        Schema::dropIfExists('profile');
-}
+        Schema::dropIfExists('profiles');
+    }
 };

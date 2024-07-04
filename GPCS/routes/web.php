@@ -71,11 +71,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/{id}/ban/list', [BanController::class, 'banlist']);
     });
 
+    Route::get('/services', [ServiceController::class, 'list'])->name('services');
     Route::post('/service/create', [ServiceController::class, 'create'])->name('service.creates');
     Route::get('/service/addprovider/{id}', [ServiceController::class, 'addprovider'])->name('service.provider.add');
     Route::post('/service/addprovider', [ServiceController::class, 'addProviderVerif'])->name('service.addprovider.post');
     Route::get('/service/create/page', [ServiceController::class, 'create_page'])->name('service.create');
-    Route::get('/service', [ServiceController::class, 'list'])->name('services');
     Route::get('/service/provider', [ServiceController::class, 'addProviderPage']);
     Route::post('/service/provider/price', [PriceController::class, 'priceUpdate'])->name('service.provider.price');
 

@@ -23,7 +23,7 @@ class ProfileController extends Controller
     public function get()
     {
         $profiles = Profile::query()
-            ->select('profile.id', 'profile.name')
+            ->select('profiles.id', 'profiles.name')
             ->get();
     
         return response()->json($profiles);

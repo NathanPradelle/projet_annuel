@@ -43,7 +43,7 @@ class FilePaths {
     const IMAGE_URL = "http://127.0.0.1:8000/Storage/";
 
     /* Provider */
-    const SERVICE_CREATE = "Provider/ServiceCreation/ServiceCreation";
+    const SERVICE_CREATE = "Provider/ServiceCreationPage/ServiceCreationPage";
     const SERVICE_FEE = "Provider/ServiceFeePage/ServiceFeePage";
     const SERVICE = "Provider/ServicesPage/ServicesPage";
     const SERVICE_ADD_PROVIDER = "Provider/AddProviderPage/AddProviderPage";

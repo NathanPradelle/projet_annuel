@@ -132,7 +132,7 @@
   },
   "myApartment": {
     "title": "Mes appartements",
-    "noApartment": "Vous n'avez aucun appartement..."
+    "noApartments": "Vous n'avez aucun appartement..."
 
   },
   "reservation": {
@@ -140,6 +140,7 @@
     "noReservation": "Vous n'avez aucune réservation pour le moment"
   },
   "service": {
+    "noServices": "Aucun services existant",
     "datePriceChange": "Date de changement du prix",
     "regularPrice": "Prix Régulier",
     "create": "Créer un service"
