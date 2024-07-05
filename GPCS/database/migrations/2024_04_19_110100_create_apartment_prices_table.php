@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('price_appartement', function (Blueprint $table) {
+        Schema::create('apartment_prices', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('apartments_id')->references('id')->on('apartments');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('price_appartement');
+        Schema::dropIfExists('apartment_prices');
     }
 };
