@@ -29,6 +29,8 @@ const BanUserList = ({ userId }) => {
     setIsModalOpen(false);
   }, []);
 
+  console.log(isModalOpen);
+
   return (
     <div>
       <DangerButton onClick={openModal}>liste Ban</DangerButton>

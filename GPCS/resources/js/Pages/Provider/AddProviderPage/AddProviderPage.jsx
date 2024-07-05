@@ -7,7 +7,7 @@ import SimpleField from '@/Components/SimpleField';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { getCurrentUser } from '@/utils/user';
 
-const AddProviderPage = ({ service }) => {
+const AddProviderPage = ({ service, id }) => {
   const currentUser = getCurrentUser();
 
   const { data, setData, post, errors } = useForm({
@@ -18,7 +18,8 @@ const AddProviderPage = ({ service }) => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      post(route('service.addprovider.post', data));
+      const dataToSend = { ...data, id };
+      post(route('service.addprovider.post', dataToSend));
     },
     [data]
   );
@@ -43,6 +44,7 @@ const AddProviderPage = ({ service }) => {
             errorMessage={errors.PrixRegulier}
             required
           />
+          <input type='hidden' id='id' name='id' value={id} />
           <SimpleButton type='submit' onClick={onSubmit}>
             Enregistrer nouveau prix
           </SimpleButton>

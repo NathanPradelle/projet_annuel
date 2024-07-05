@@ -5,7 +5,8 @@ import SimpleButton from '@/Components/Buttons/SimpleButton';
 import { PROFILE } from '@/Constants/profiles';
 import { getCurrentUser, isUserProvider } from '@/utils/user';
 
-const useColumns = () => {
+const useColumns = (provider_service) => {
+  console.log(provider_service);
   const currentUser = getCurrentUser();
   const columns = useMemo(() => {
     const cols = [
@@ -22,16 +23,6 @@ const useColumns = () => {
         renderCell: (row) => row?.category,
       },
     ];
-
-    isUserProvider(currentUser) &&
-      [PROFILE.PROVIDER].includes(currentUser.profileInUse) &&
-      cols.push({
-        renderCell: (row) => (
-          <SimpleButton to={route('service.provider.add', row.id)}>
-            Proposer service
-          </SimpleButton>
-        ),
-      });
 
     return cols;
   }, []);
