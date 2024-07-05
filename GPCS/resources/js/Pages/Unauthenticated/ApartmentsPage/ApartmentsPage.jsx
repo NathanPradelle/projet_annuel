@@ -1,44 +1,74 @@
 import { InertiaLink } from '@inertiajs/inertia-react';
+import { useForm } from '@inertiajs/react';
 import { t } from 'i18next';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import SimpleButton from '@/Components/Buttons/SimpleButton';
+import SimpleField from '@/Components/SimpleField';
 import ApartmentWindow from '@/Features/ApartmentWindow/ApartmentWindow';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const AppartementsPage = ({ apartments, storagePath }) => {
-  console.log(apartments);
-  const [searchTerm, setSearchTerm] = useState('');
-  // Fonction pour filtrer les utilisateurs par nom ou par e-mail
-  const filteredUsers = apartments?.data?.filter(
-    (user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-  const filteredApart = useMemo(() => {});
+  const { data, setData, errors } = useForm();
 
-  // Gestionnaire de changement pour la recherche
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  const filteredApart = useMemo(() => {
+    let filteredApartments = apartments?.data;
 
+    if (data?.priceMin) {
+      filteredApartments = filteredApartments.filter(
+        (e) => String(e?.price) >= String(data?.priceMin)
+      );
+    }
+
+    if (data?.priceMax) {
+      filteredApartments = filteredApartments.filter(
+        (e) => String(e?.price) <= String(data?.priceMax)
+      );
+    }
+
+    if (data?.address) {
+      filteredApartments = filteredApartments.filter((e) =>
+        e?.address?.toLowerCase().includes(data?.address?.toLowerCase())
+      );
+    }
+
+    return filteredApartments;
+  }, [apartments, data]);
   return (
     <AuthenticatedLayout
       head='Welcome'
-      className='bg-gradient-to-br from-gray-800 to-gray-600 dark:bg-black dark:text-white/50 flex-col'
+      className='bg-gradient-to-br from-gray-800 to-gray-600 flex-col'
     >
-      <h3 className='flex-center m-2'>{t('appLongName')}</h3>
+      <h3 className='flex-center dark:text-white/50 m-2'>{t('appLongName')}</h3>
       <div className='p-4 sm:p-8 bg-white shadow sm:rounded-lg'>
-        <input
-          type='text'
-          placeholder='Recherche par nom ou par e-mail...'
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className='block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
-        />
-        {apartments?.data?.length > 0 ? (
+        <div className='flex gap-2'>
+          <SimpleField
+            id='priceMin'
+            type='number'
+            setData={setData}
+            value={data.name}
+            label={t('apartment.priceMin')}
+            errorMessage={errors.name}
+          />
+          <SimpleField
+            id='priceMax'
+            type='number'
+            setData={setData}
+            value={data.name}
+            label={t('apartment.priceMax')}
+            errorMessage={errors.name}
+          />
+          <SimpleField
+            id='address'
+            setData={setData}
+            value={data.name}
+            label={t('common.address')}
+            errorMessage={errors.name}
+          />
+        </div>
+        {filteredApart?.length > 0 ? (
           <div className='flex flex-wrap gap-2 justify-start'>
-            {apartments?.data?.map((apartment) => (
+            {filteredApart?.map((apartment) => (
               <ApartmentWindow
                 key={apartment.id}
                 apartment={apartment}

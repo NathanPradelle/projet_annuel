@@ -67,9 +67,9 @@ const UserPage = ({ user }) => {
       <form onSubmit={onSubmit}>
         <SimpleField
           id='name'
+          setData={setData}
           value={data.name}
           label={t('common.name')}
-          onChange={(e) => setData('name', e.target.value)}
           errorMessage={errors.name}
           required
           disabled={disabled}

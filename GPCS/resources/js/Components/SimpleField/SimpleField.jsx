@@ -31,6 +31,7 @@ const SimpleField = ({
 
       <InputText
         id={id}
+        setData={setData}
         type={type}
         value={value}
         onChange={onChangeInput}
