@@ -76,6 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/service/addprovider/{id}', [ServiceController::class, 'addprovider'])->name('service.provider.add');
     Route::post('/service/addprovider', [ServiceController::class, 'addProviderVerif'])->name('service.addprovider.post');
     Route::get('/service/create/page', [ServiceController::class, 'create_page'])->name('service.create');
+    Route::get('/service/listtarrification', [ServiceController::class, 'liste_provider_service'])->name('service.provider.list');
     Route::get('/service/provider', [ServiceController::class, 'addProviderPage']);
     Route::post('/service/provider/price', [PriceController::class, 'priceUpdate'])->name('service.provider.price');
 
@@ -102,11 +103,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/fermetures', [ClosedPeriodController::class, 'store'])->name('fermeture.store');
     });
     Route::get('/payment',[PaymentController::class, 'payment']);
+
+    Route::get('/factureclient/{id}', [FactureController::class, 'client'])->name('facture.client.id'); // need fix
+
 });
 
 Route::get('/', [ApartmentController::class, 'list'])->name('apartment.list');
 
-Route::get('/factureclient', [FactureController::class, 'client']); // need fix
+
 Route::get('/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
 
 Route::get('/check-table', [CheckTableController::class, 'checkTableBan']);

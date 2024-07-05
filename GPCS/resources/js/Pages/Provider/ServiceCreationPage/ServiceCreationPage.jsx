@@ -58,7 +58,8 @@ const ServiceCreationPage = () => {
             setData={setData}
             type='string'
             value={data.label}
-            label={'nom'}
+            label={'Nom Service'}
+            onChange={(e) => setData('label', e.target.value)}
             errorMessage={errors.label}
             required
           />

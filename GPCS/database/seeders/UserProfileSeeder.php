@@ -22,5 +22,13 @@ class UserProfileSeeder extends Seeder
             'profile_in_use'=>5,
             'remember_token'=>"azerty1234",
         ]);
+        DB::table('users')->insert([
+            'name'=>"provider",
+            'email'=>"provider@provider.provider",
+            'email_verified_at'=>now(),
+            'password'=>"$2y$12$8Wbcno.ZE./d1jIbPVaEq.SNhHpGUSkA6wbHmfDolRv9Gm2EUvAdq",
+            'profile_in_use'=>3,
+            'remember_token'=>"qwerty1234",
+        ]);
     }
 }
