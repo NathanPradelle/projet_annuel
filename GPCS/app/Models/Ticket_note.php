@@ -11,7 +11,8 @@ class Ticket_note extends Model
     use HasFactory;
 
     protected $fillable = [
-        'note'
+        'note',
+        'ticket_id',
     ];
 
     public function tickets(): BelongsTo {

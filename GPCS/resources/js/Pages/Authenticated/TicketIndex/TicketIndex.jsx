@@ -11,15 +11,13 @@ const TicketIndex = ({ tickets, pagination }) => {
     // Fonction pour filtrer les utilisateurs par ID ou par Objet
     const filteredTickets = tickets?.filter(
         (ticket) =>
-            ticket.id ||
-            ticket.objet.toLowerCase().includes(searchTerm.toLowerCase())
+               String(ticket.id) === searchTerm || ticket.objet.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     // Gestionnaire de changement pour la recherche
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
-
     return (
         <AuthenticatedLayout
             headTitle='CustomerIndex'

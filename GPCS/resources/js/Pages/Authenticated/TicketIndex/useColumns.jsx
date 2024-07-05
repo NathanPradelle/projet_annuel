@@ -25,7 +25,7 @@ const useColumns = () => {
             // },
             {
                 renderCell: (row) => (
-                    <Link href={route('tickets.index', row?.id)}>{t('common.details')}</Link>
+                    <Link href={route('tickets.show', row?.id)}>{t('common.details')}</Link>
                 ),
             },
         ],
