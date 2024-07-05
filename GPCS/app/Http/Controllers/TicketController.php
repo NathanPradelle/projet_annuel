@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use App\Http\Controllers\Controller;
+use App\Models\Ticket_note;
 use FilePaths;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -61,14 +62,19 @@ class TicketController extends Controller
      */
     public function show($id)
     {
-        $ticket = Ticket::with(['ticketCategory', 'user'])->find($id);
+        $ticket = Ticket::with(['ticketCategory', 'user', 'ticketNotes'])->find($id);
 
         if (!$ticket) {
-            return response()->json(['message' => 'TicketCreationPage not found'], 404);
+            return response()->json(['message' => 'Ticket not found'], 404);
         }
 
-        return response()->json($ticket);
+        if (request()->is('api/*')) {
+            return response()->json($ticket);
+        } else {
+            return inertia('TicketShow', ['ticket' => $ticket]);
+        }
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -89,11 +95,21 @@ class TicketController extends Controller
         }
 
         $request->validate([
-            'status' => 'required|string|in:new,closed,fixed',
+            'status' => 'string|in:new,closed,fixed',
+            'solution' => 'nullable|string',
         ]);
 
-        $ticket->status = $request->input('status');
-        $ticket->save();
+        if ($request->has('status')) {
+            $ticket->status = $request->input('status');
+            $ticket->save();
+        }
+
+        if ($request->filled('solution')) {
+            Ticket_note::create([
+                'ticket_id' => $ticket->id,
+                'note' => $request->input('solution')
+            ]);
+        }
 
         return response()->json($ticket);
     }

@@ -7,7 +7,6 @@ import { getCurrentUser } from '@/utils/user';
 
 const Contact = () => {
   const currentUser = getCurrentUser();
-  // PROFILE.includes(currentUser.profileInUse); // This thing does nothing
 
   return (
     <AuthenticatedLayout>
