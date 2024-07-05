@@ -121,12 +121,28 @@ class UserController extends Controller
         ->distinct()
         ->paginate(10);
 
+        $pagination = [
+            'current_page' => $users->currentPage(),
+            'first_page_url' => $users->url(1),
+            'from' => $users->firstItem(),
+            'last_page' => $users->lastPage(),
+            'last_page_url' => $users->url($users->lastPage()),
+            'links' => $users->linkCollection(),
+            'next_page_url' => $users->nextPageUrl(),
+            'path' => $users->path(),
+            'per_page' => $users->perPage(),
+            'prev_page_url' => $users->previousPageUrl(),
+            'to' => $users->lastItem(),
+            'total' => $users->total(),
+        ];
+
         $formattedUsers = $users->map(function ($user) {
             return $user->modelSetter();
         });
 
         return Inertia::render(FilePaths::USERS, [
             'users' => $formattedUsers,
+            'pagination' => $pagination
         ]);
     }
 
