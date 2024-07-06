@@ -71,6 +71,10 @@ class User extends Authenticatable
         return $this->belongsTo(Profile::class, 'profile_in_use', 'id');
     }
 
+    public function ticketNotes(): HasMany{
+        return $this->HasMany(Ticket_note::class);
+    }
+
     /// <summary>
     /// Fonction to set user to return
     /// </summary>

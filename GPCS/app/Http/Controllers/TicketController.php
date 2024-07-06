@@ -17,14 +17,20 @@ class TicketController extends Controller
     public function index()
     {
         $tickets = Ticket::query()
-            ->select(['id', 'objet', 'description', 'status'])
-//            ->with(['user:id,name'])
-//            ->with(['ticketCategory:id,name'])
+            ->select(['id', 'objet', 'description', 'status', 'ticket_category_id', 'created_at'])
+            ->with(['ticketCategory:id,name'])
             ->latest()
             ->paginate(25);
 
+        // Ajoutez le nom de la catégorie à chaque ticket
+        $tickets->getCollection()->transform(function ($ticket) {
+            $ticket->category_name = $ticket->ticketCategory->name;
+            return $ticket;
+        });
+
         return response()->json($tickets);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -55,7 +61,7 @@ class TicketController extends Controller
         $ticket->description = $validateData['description'];
         $ticket->save();
 
-        return redirect()->route('ticket.index', $validateData['user_id'])->with('success', 'TicketCreationPage créé avec succès!');
+        return redirect()->route('tickets.index', $validateData['user_id'])->with('success', 'TicketCreationPage créé avec succès!');
     }
     /**
      * Display the specified resource.
@@ -71,7 +77,7 @@ class TicketController extends Controller
         if (request()->is('api/*')) {
             return response()->json($ticket);
         } else {
-            return inertia('TicketShow', ['ticket' => $ticket]);
+            return inertia(FilePaths::TICKET_SHOW, ['ticket' => $ticket]);
         }
     }
 
@@ -95,23 +101,28 @@ class TicketController extends Controller
         }
 
         $request->validate([
-            'status' => 'string|in:new,closed,fixed',
-            'solution' => 'nullable|string',
+            'status' => 'string|in:new,closed,fixed|nullable',
+            'note' => 'nullable|string',
         ]);
 
-        if ($request->has('status')) {
+        if ($request->filled('status')) {
             $ticket->status = $request->input('status');
             $ticket->save();
         }
 
-        if ($request->filled('solution')) {
+        if ($request->filled('note')) {
             Ticket_note::create([
                 'ticket_id' => $ticket->id,
-                'note' => $request->input('solution')
+                'note' => $request->input('note'),
+                'user_id' => $request->input('user_id')
             ]);
         }
 
-        return response()->json($ticket);
+        if (request()->is('api/*')) {
+            return response()->json($ticket);
+        } else {
+            return redirect()->route('ticket.show', $id)->with('success', 'Note ajoutée');
+        }
     }
 
     /**
@@ -140,7 +151,8 @@ class TicketController extends Controller
     public function customerIndex($id){
 
         $tickets = Ticket::where('user_id', $id)
-            ->select(['id', 'objet', 'description', 'status'])
+            ->select(['id', 'objet', 'description', 'status', 'ticket_category_id', 'created_at'])
+            ->with(['ticketCategory:id,name'])
             ->latest()
             ->paginate(25);
 
