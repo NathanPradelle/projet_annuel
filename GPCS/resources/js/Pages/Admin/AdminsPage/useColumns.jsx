@@ -1,8 +1,12 @@
 import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/react';
+import { t } from 'i18next';
 import { useCallback, useMemo, useState } from 'react';
 
-import { getProfileLabel } from '@/utils/user';
+import InputText from '@/Components/InputText';
+import SimpleListMultiple from '@/Components/SimpleListMultiple';
+import { ALL_PROFILES } from '@/Constants/profiles';
+import { getProfileLabel, getUserName } from '@/utils/user';
 
 const useColumns = () => {
   const { data, setData, patch } = useForm();
@@ -33,6 +37,17 @@ const useColumns = () => {
     });
   };
 
+  const profilesOptions = useMemo(
+    () =>
+      ALL_PROFILES?.map((profile) => {
+        return {
+          value: profile,
+          label: getProfileLabel(profile),
+        };
+      }),
+    []
+  );
+
   const columns = useMemo(
     () => [
       {
@@ -43,33 +58,40 @@ const useColumns = () => {
       },
       {
         field: 'name',
-        headerName: 'Nom',
+        headerName: t('common.name'),
         valueGetter: (row) => row?.name,
         renderCell: (row) =>
           editingUser === row.id ? (
-            <input
-              type='text'
-              name='name'
-              value={data.name}
-              onChange={(e) => setData('name', e.target.value)}
-              className='border border-gray-300 rounded-md px-2 py-1'
-            />
+            <>
+              <InputText
+                id='firstname'
+                setdata={setData}
+                value={data.firstname}
+                required
+              />
+              <InputText
+                id='lastname'
+                setdata={setData}
+                value={data.lastname}
+                required
+              />
+            </>
           ) : (
-            row?.name
+            getUserName(row)
           ),
       },
       {
         field: 'email',
-        headerName: 'Email',
+        headerName: t('common.email'),
         valueGetter: (row) => row?.email,
         renderCell: (row) =>
           editingUser === row.id ? (
-            <input
+            <InputText
+              id='email'
               type='email'
-              name='email'
+              setdata={setData}
               value={data.email}
-              onChange={(e) => setData('email', e.target.value)}
-              className='border border-gray-300 rounded-md px-2 py-1'
+              required
             />
           ) : (
             row?.email
@@ -77,19 +99,18 @@ const useColumns = () => {
       },
       {
         field: 'profiles',
-        headerName: 'Role',
+        headerName: 'Roles',
         valueGetter: (row) => row?.profileInUse,
         renderCell: (row) =>
           editingUser === row.id ? (
-            <select
-              name='profile'
-              value={data.profile}
-              onChange={(e) => setData('profile', e.target.value)}
-            >
-              Gestionnaire Administrateur
-            </select>
+            <SimpleListMultiple
+              id='profiles'
+              setdata={setData}
+              value={data.profiles}
+              options={profilesOptions}
+            />
           ) : (
-            getProfileLabel(row?.profileInUse)
+            row.profiles.map((profile) => getProfileLabel(profile?.id))
           ),
       },
       {

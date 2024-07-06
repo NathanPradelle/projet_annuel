@@ -38,25 +38,25 @@ const Login = ({ status, canResetPassword }) => {
         <SimpleField
           id='email'
           type='email'
+          setdata={setData}
           value={data.email}
-          label='Email'
-          onChange={(e) => setData('email', e.target.value)}
+          label={t('common.email')}
           errorMessage={errors.email}
         />
         <SimpleField
           id='password'
           type='password'
+          setdata={setData}
           value={data.password}
-          label='Mot de passe'
-          onChange={(e) => setData('password', e.target.value)}
+          label={t('signIn.password.label')}
           errorMessage={errors.password}
         />
         <SimpleCheckbox
           id='remember'
+          setdata={setData}
           className='flex gap-0_5 mt-2'
           value={data.remember}
-          label='Remember me'
-          onChange={(e) => setData('remember', e.target.checked)}
+          label={t('login.rememberMe')}
           errorMessage={errors.password}
         />
 

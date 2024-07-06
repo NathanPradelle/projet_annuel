@@ -56,7 +56,7 @@ const ApartmentPage = ({
                 <SimpleDate
                   id='dateStart'
                   value={data.dateStart}
-                  setData={setData}
+                  setdata={setData}
                   label={t('common.dateStart')}
                   minDate={demain}
                   errorMessage={errors.dateStart}
@@ -65,7 +65,7 @@ const ApartmentPage = ({
                 <SimpleDate
                   id='dateEnd'
                   value={data.dateEnd}
-                  setData={setData}
+                  setdata={setData}
                   label={t('common.dateEnd')}
                   minDate={demain}
                   errorMessage={errors.dateEnd}

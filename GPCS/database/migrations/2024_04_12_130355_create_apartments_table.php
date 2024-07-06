@@ -15,13 +15,14 @@ return new class extends Migration
         Schema::create('apartments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('address');
+            $table->integer('postal_code');
+            $table->text('street');
             $table->integer('surface');
             $table->integer('guestCount');
             $table->integer('roomCount');
             $table->text('description')->nullable();
             $table->integer('price');
-            $table->boolean('availability')->default(true);
+            $table->boolean('activated')->default(false);
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

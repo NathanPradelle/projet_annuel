@@ -8,7 +8,7 @@ import InputText from '../InputText';
 const SimpleDate = ({
   id,
   value,
-  setData,
+  setdata,
   label,
   minDate,
   maxDate,
@@ -21,10 +21,10 @@ const SimpleDate = ({
   // .toISOString()
   const onChangeInput = useCallback(
     (dates) => {
-      setData && setData(id, dates[0]);
+      setdata && setdata(id, dates[0]);
       onChange && onChange(dates[0]);
     },
-    [onChange, setData]
+    [onChange, setdata]
   );
 
   flatpickr(`#${id}`, {

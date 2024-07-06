@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import InputText from '@/Components/InputText';
@@ -8,33 +6,25 @@ const SimpleField = ({
   id,
   className,
   type,
-  value,
-  setData,
-  label,
+  setdata,
   onChange,
+  value,
+  label,
   errorMessage,
   placeholder,
   required,
   disabled,
 }) => {
-  const onChangeInput = useCallback(
-    (e) => {
-      setData && setData(id, e.target.value);
-      onChange && onChange(e);
-    },
-    [onChange, setData]
-  );
-
   return (
     <div className={className}>
       <InputLabel htmlFor={id} value={label} />
 
       <InputText
         id={id}
-        setData={setData}
         type={type}
+        setdata={setdata}
+        onChange={onChange}
         value={value}
-        onChange={onChangeInput}
         placeholder={placeholder}
         required={required}
         disabled={disabled}

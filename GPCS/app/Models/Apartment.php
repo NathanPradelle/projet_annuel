@@ -16,7 +16,8 @@ class Apartment extends Model
     protected $policy = ApartementPolicy::class;
 
     protected $fillable = [
-        'name',
+        'postal_code',
+        'street',
         'address',
         'surface',
         'guestCount',

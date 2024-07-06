@@ -45,7 +45,7 @@ const AppartementsPage = ({ apartments, storagePath }) => {
           <SimpleField
             id='priceMin'
             type='number'
-            setData={setData}
+            setdata={setData}
             value={data.name}
             label={t('apartment.priceMin')}
             errorMessage={errors.name}
@@ -53,14 +53,14 @@ const AppartementsPage = ({ apartments, storagePath }) => {
           <SimpleField
             id='priceMax'
             type='number'
-            setData={setData}
+            setdata={setData}
             value={data.name}
             label={t('apartment.priceMax')}
             errorMessage={errors.name}
           />
           <SimpleField
             id='address'
-            setData={setData}
+            setdata={setData}
             value={data.name}
             label={t('common.address')}
             errorMessage={errors.name}

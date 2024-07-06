@@ -7,7 +7,7 @@ import Checkbox from '../Checkbox';
 
 const SimpleCheckbox = ({
   id,
-  setData,
+  setdata,
   className,
   value,
   label,
@@ -16,10 +16,10 @@ const SimpleCheckbox = ({
 }) => {
   const onChangeInput = useCallback(
     (e) => {
-      setData && setData(id, e.target.value);
+      setdata && setdata(id, e.target.value);
       onChange && onChange(e);
     },
-    [onChange, setData]
+    [onChange, setdata]
   );
 
   return (

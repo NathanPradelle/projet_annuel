@@ -11,8 +11,8 @@ const UsersPage = ({ users, pagination }) => {
   // Fonction pour filtrer les utilisateurs par nom ou par e-mail
   const filteredUsers = users?.filter(
     (user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+      user?.name?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      user?.email?.toLowerCase().includes(searchTerm?.toLowerCase())
   );
 
   // Gestionnaire de changement pour la recherche

@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import { t } from 'i18next';
 import { useMemo } from 'react';
 
-import { getProfileLabel } from '@/utils/user';
+import { getProfileLabel, getUserName } from '@/utils/user';
 
 import BanUserForm from './BanUserForm';
 import BanUserList from './BanUserList';
@@ -18,19 +18,19 @@ const useColumns = () => {
       },
       {
         field: 'name',
-        headerName: 'Nom',
-        valueGetter: (row) => row?.name,
-        renderCell: (row) => row?.name,
+        headerName: t('common.name'),
+        valueGetter: (row) => row?.firstname,
+        renderCell: (row) => getUserName(row),
       },
       {
         field: 'email',
-        headerName: 'Email',
+        headerName: t('common.email'),
         valueGetter: (row) => row?.email,
         renderCell: (row) => row?.email,
       },
       {
         field: 'profiles',
-        headerName: 'Role',
+        headerName: 'Role Actif',
         valueGetter: (row) => row?.profileInUse,
         renderCell: (row) => getProfileLabel(row?.profileInUse),
       },
