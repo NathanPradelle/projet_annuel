@@ -2,12 +2,12 @@ import { Head } from '@inertiajs/react';
 import React from 'react';
 
 import SimpleButton from '@/Components/Buttons/SimpleButton';
-import { PROFILE } from '@/Constants/profiles';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.jsx';
 import { getCurrentUser } from '@/utils/user';
 
 const Contact = () => {
   const currentUser = getCurrentUser();
+
   return (
     <AuthenticatedLayout>
       <Head title='Contact' />

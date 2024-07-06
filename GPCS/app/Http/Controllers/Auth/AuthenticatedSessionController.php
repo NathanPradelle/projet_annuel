@@ -50,7 +50,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('apartment.list');
     }
 
     public function apiLogin(LoginRequest $request)
@@ -68,7 +68,7 @@ class AuthenticatedSessionController extends Controller
                 'access_token' => $token,
                 'token_type' => 'Bearer',
                 'user' => [
-                    'user_id'=> $user->id,
+                    'user_id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
                 ]
@@ -92,5 +92,4 @@ class AuthenticatedSessionController extends Controller
             return response()->json(['message' => 'Internal Server Error'], 500);
         }
     }
-
 }

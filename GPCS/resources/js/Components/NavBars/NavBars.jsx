@@ -43,7 +43,7 @@ const NavBars = () => {
 
         {isUserProvider(currentUser) &&
           MANAGER_PROFILES.includes(currentUser.profileInUse) && (
-            <NavLink href={route('services')}>Service</NavLink>
+            <NavLink href={route('services')}>Services</NavLink>
           )}
 
         {isUserManager(currentUser) &&

@@ -42,7 +42,10 @@ class ReservationController extends Controller
         });
 
         // Passer les réservations à la vue
-        return Inertia::render(FilePaths::MY_RESERVATIONS, ['reservations' => $formattedReservations, 'pagination' => $pagination]);
+        return Inertia::render(FilePaths::MY_RESERVATIONS, [
+            'reservations' => $formattedReservations, 
+            'pagination' => $pagination
+        ]);
     }
 
 

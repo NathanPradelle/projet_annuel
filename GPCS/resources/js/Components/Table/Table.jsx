@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 const Table = ({ seachInput, columns, data, pagination, placeholder }) => {
   const cols = useMemo(() => columns, [columns, data]);
-  console.log(data);
+
   return (
     <div className='flex-col gap-1 p-6 text-gray-900'>
       {seachInput}

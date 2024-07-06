@@ -66,11 +66,21 @@ const UserPage = ({ user }) => {
       </div>
       <form onSubmit={onSubmit}>
         <SimpleField
-          id='name'
-          value={data.name}
-          label={t('common.name')}
-          onChange={(e) => setData('name', e.target.value)}
-          errorMessage={errors.name}
+          id='firstname'
+          setdata={setData}
+          value={data.firstname}
+          label={t('user.firstname')}
+          errorMessage={errors.firstname}
+          required
+          disabled={disabled}
+        />
+
+        <SimpleField
+          id='lastname'
+          onChange={(v) => setData('lastname', v?.toUpperCase())}
+          value={data.lastname}
+          label={t('user.lastname')}
+          errorMessage={errors.lastname}
           required
           disabled={disabled}
         />
@@ -78,9 +88,9 @@ const UserPage = ({ user }) => {
         <SimpleField
           id='email'
           type='email'
+          setdata={setData}
           value={data.email}
           label={t('common.email')}
-          onChange={(e) => setData('email', e.target.value)}
           errorMessage={errors.email}
           required
           disabled={disabled}
@@ -88,8 +98,8 @@ const UserPage = ({ user }) => {
 
         <SimpleListMultiple
           id='profiles'
+          setdata={setData}
           value={data.profiles}
-          setData={setData}
           label="Profils de l'utilisateur"
           options={profilesOptions}
           disabled={disabled}

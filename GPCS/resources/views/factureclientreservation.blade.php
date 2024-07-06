@@ -10,9 +10,18 @@ body{
     width: 95%;
 }
 
-table {
+.table_appartement {
+    width: 100%;
+    height: 100px;
+}
+
+.table_service {
     width: 100%;
     height: 400px;
+}
+table {
+    width: 100%;
+    height: 100px;
 }
 
 table, tr, th, td {
@@ -33,11 +42,32 @@ table, tr, th, td {
 </style>
 <div class="container">
     <div class="info_client">
-        <strong>NOM Prenom</strong> <br>
+        @php 
+            echo  "<strong>".$user->name."</strong> <br>"
+        @endphp
         address <br>
         Ville <br>
     </div>
-    <table >
+
+    <table class="table_appartement">
+        <thead>
+        <tr>
+            <th style="width:80%">Appartement</th>
+            <th>Prix</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr class="appartement">
+                @php
+                    echo "<td>".$reservation->apartment->name."</td>";
+                    echo "<td>".$total_price."€</td>"
+                @endphp
+
+                
+            </tr>
+    </table>
+
+    <table class="table_service">
         <thead>
         <tr>
             <th style="width:80%">Service</th>
@@ -55,5 +85,5 @@ table, tr, th, td {
             </tr>
         </tbody>
 
-      </table>
+    </table>
 </div>

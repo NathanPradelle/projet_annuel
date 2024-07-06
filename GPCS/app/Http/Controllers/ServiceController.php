@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\service;
-use App\Models\provider_services;
+use App\Models\Service;
+use App\Models\provider_service;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use FilePaths;
@@ -14,7 +15,8 @@ class ServiceController extends Controller
         return Inertia::render(FilePaths::SERVICE_CREATE);
     }
     public function create(Request $request){
-        $service = new service();
+        $service = new Service();
+        //dd($request);
         $service->label=$request['label'];
         $service->category=$request['category'];
         dd($service->save());
@@ -25,7 +27,11 @@ class ServiceController extends Controller
     /// </summary>
     public function list(){
         $services = Service::all();
-        //dd($service);
+        $user = User::find(auth()->id()); //to change
+        $user->id; // to change
+        $provider_service = provider_service::where('user_id', $user->id)->get();
+        // dd($provider_service);
+        // dd($service);
         return Inertia::render(FilePaths::SERVICE, ['services' => $services]);
     }
 
@@ -44,7 +50,7 @@ class ServiceController extends Controller
 
     public function addProviderPage(Request $request){
         //dd($request);
-        $service_provider = new provider_services();
+        $service_provider = new provider_service();
         $service_provider->user_id = $request['user_id'];
         $service_provider->service_id = $request['service_id'];
         //dd($service_provider);
@@ -52,11 +58,11 @@ class ServiceController extends Controller
         dd($service_provider->save());
     }
 
-    public function addProviderVerif(Request $request){
-        $service_provider = new provider_services();
-        dd($request);
-        $service_provider->user_id = 1;
-        $service_provider->service_id = 1;
-        $service_provider;
+    public function addProviderVerif(Request $request,){
+        $service_provider = new provider_service();
+        //dd($request,$request['user.id'],$request->input());
+        $service_provider->user_id = $request['user.id'];
+        $service_provider->service_id = $request['id'];
+        dd($service_provider->save());
     }
 }

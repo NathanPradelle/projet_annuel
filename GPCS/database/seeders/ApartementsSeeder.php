@@ -16,12 +16,24 @@ class ApartementsSeeder extends Seeder
     public function run(): void
     {
         DB::table('apartments')->insert([
-            'name' => "name",
-            'address' => "address",
-            'surface' => 10,
-            'guestCount' => 10,
-            'roomCount' => 1,
-            'price' => 10000,
+            'name' => "appartement fleuri",
+            'postal_code' => 92130,
+            'street' => "10 rue des fleurs",
+            'surface' => 30,
+            'guestCount' => 4,
+            'roomCount' => 3,
+            'price' => 80,
+            'user_id' => 1
+        ]);
+
+        DB::table('apartments')->insert([
+            'name' => "yeux des mers",
+            'postal_code' => 13008,
+            'street' => "4 Bd Piot",
+            'surface' => 40,
+            'guestCount' => 5,
+            'roomCount' => 3,
+            'price' => 100,
             'user_id' => 1
         ]);
     }

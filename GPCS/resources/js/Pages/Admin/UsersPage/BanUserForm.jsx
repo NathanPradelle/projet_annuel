@@ -1,26 +1,15 @@
 import { useForm } from '@inertiajs/react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import DangerButton from '@/Components/Buttons/DangerButton';
 import SecondaryButton from '@/Components/Buttons/SecondaryButton';
-import DateInput from '@/Components/DateInput';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import InputText from '@/Components/InputText';
 import Modal from '@/Components/Modal';
+import SimpleDate from '@/Components/SimpleDate';
+import SimpleField from '@/Components/SimpleField';
 
 const BanUserForm = ({ userId, className = '' }) => {
   const [confirmingUserBan, setConfirmingUserBan] = useState(false);
-  const {
-    data,
-    setData,
-    get,
-    post,
-    delete: destroy,
-    processing,
-    reset,
-    errors,
-  } = useForm({
+  const { data, setData, get, processing, reset, errors } = useForm({
     user_id: userId,
     date_start: '',
     date_end: '',
@@ -53,38 +42,32 @@ const BanUserForm = ({ userId, className = '' }) => {
       <Modal show={confirmingUserBan} onClose={closeModal}>
         <form onSubmit={banUser} className='p-6'>
           <div className='mt-6'>
-            <InputLabel htmlFor='date_start' value='Start Date' />
-            <DateInput
-              id='start'
-              name='start'
+            <SimpleDate
+              id='date_start'
+              setdata={setData}
               value={data.date_start}
-              onChange={(e) => setData({ ...data, date_start: e.target.value })}
+              label='Start Date'
+              errorMessage={errors.date_start}
               isFocused
             />
-            <InputError message={errors.date_start} className='mt-2' />
           </div>
           <div className='mt-6'>
-            <InputLabel htmlFor='date_end' value='End Date' />
-            <DateInput
-              id='end'
-              name='end'
+            <SimpleField
+              id='date_end'
+              setdata={setData}
               value={data.date_end}
-              onChange={(e) => setData({ ...data, date_end: e.target.value })}
-              isFocused
+              label='End Date'
+              errorMessage={errors.date_end}
             />
-            <InputError message={errors.date_end} className='mt-2' />
           </div>
           <div className='mt-6'>
-            <InputLabel htmlFor='raison' value='Raison' />
-            <InputText
+            <SimpleField
               id='raison'
-              name='raison'
+              setdata={setData}
               value={data.raison}
-              onChange={(e) => setData('raison', e.target.value)}
-              isFocused
-              placeholder='raison'
+              label='Raison'
+              errorMessage={errors.raison}
             />
-            <InputError></InputError>
           </div>
 
           <div className='mt-6 flex justify-end'>

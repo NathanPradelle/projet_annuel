@@ -36,7 +36,7 @@ const ServiceFeePage = ({ service }) => {
           <SimpleDate
             id='start'
             value={data.start}
-            setData={setData}
+            setdata={setData}
             label={t('service.datePriceChange')}
             minDate={demain}
             errorMessage={errors.start}
@@ -44,36 +44,36 @@ const ServiceFeePage = ({ service }) => {
           <SimpleField
             id='PrixRegulier'
             type='number'
+            setdata={setData}
             value={data.PrixRegulier}
             label={t('service.regularPrice')}
-            onChange={(e) => setData('PrixRegulier', e.target.value)}
             errorMessage={errors.PrixRegulier}
             required
           />
           <SimpleField
             id='PrixSemaine'
             type='number'
+            setdata={setData}
             value={data.PrixSemaine}
             label={t('service.regularPrice')}
-            onChange={(e) => setData('PrixSemaine', e.target.value)}
             errorMessage={errors.PrixSemaine}
             required
           />
           <SimpleField
             id='PrixWeekend'
             type='number'
+            setdata={setData}
             value={data.PrixWeekend}
             label={t('service.regularPrice')}
-            onChange={(e) => setData('PrixWeekend', e.target.value)}
             errorMessage={errors.PrixWeekend}
             required
           />
           <SimpleField
             id='PrixFerie'
             type='number'
+            setdata={setData}
             value={data.PrixFerie}
             label={t('service.regularPrice')}
-            onChange={(e) => setData('PrixFerie', e.target.value)}
             errorMessage={errors.PrixFerie}
             required
           />

@@ -7,6 +7,10 @@ export const getCurrentUser = () => {
   return usePage().props?.auth?.currentUser;
 };
 
+export const getUserName = (user) => {
+  return `${user.firstname} ${user.lastname}`;
+};
+
 export const getProfileLabel = (profileId) => {
   switch (profileId) {
     case PROFILE.LESSOR:

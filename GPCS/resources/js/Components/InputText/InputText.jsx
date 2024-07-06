@@ -1,8 +1,17 @@
 import clsx from 'clsx';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 const InputText = (
-  { id, type = 'text', className, isFocused, disabled, ...props },
+  {
+    id,
+    type = 'text',
+    setdata,
+    onChange,
+    className,
+    isFocused,
+    disabled,
+    ...props
+  },
   ref
 ) => {
   const input = ref ? ref : useRef();
@@ -12,6 +21,14 @@ const InputText = (
       input?.current?.focus();
     }
   }, []);
+
+  const onChangeInput = useCallback(
+    (e) => {
+      setdata && setdata(id, e.target.value);
+      onChange && onChange(e.target.value);
+    },
+    [onChange, setdata]
+  );
 
   return (
     <input
@@ -23,6 +40,7 @@ const InputText = (
         disabled ? 'text-grey bg-transparent' : 'bg-white',
         className
       )}
+      onChange={onChangeInput}
       {...props}
     />
   );
