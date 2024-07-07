@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import { t } from 'i18next';
 import React from 'react';
 
+import { getUserName } from '@/utils/user';
+
 const ApartmentWindow = ({ apartment, storagePath, actions, bg }) => {
   return (
     <div key={apartment?.id} className={clsx('apartment-window', bg)}>
@@ -20,8 +22,12 @@ const ApartmentWindow = ({ apartment, storagePath, actions, bg }) => {
             : t('apartment.noPictureAvailable')}
         </div>
         <h1 className='text-2xl font-extrabold'>{apartment?.name}</h1>
-        <p>{apartment?.address}</p>
-        <p>Loué par {apartment?.user?.name}</p>
+        <p>
+          {apartment?.street}, {apartment?.postalCode}
+        </p>
+        <p>
+          {t('apartment.rentedBy')} {getUserName(apartment?.user)}
+        </p>
         <p>
           <span className='font-extrabold'>
             {apartment?.price}€ {t('apartment.perNight')}

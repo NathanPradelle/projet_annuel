@@ -9,6 +9,7 @@ use App\Models\Reservation;
 use App\Models\Tag;
 use Carbon\Carbon;
 use FilePaths;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,39 +17,59 @@ use Inertia\Inertia;
 
 class ApartmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function list()
+    /// <summary>
+    /// Get all apartments for manager/admin.
+    /// </summary>
+    public function managerList()
     {
-        /*
-        dd(Apartment::select(['id', 'name', 'address', 'price', 'image', 'user_id'])
-        ->get());
-        */
         $apartments = Apartment::query()
-            ->select(['id', 'name', 'address', 'price', 'image', 'user_id'])
+            ->select(['id', 'name', 'postal_code', 'street', 'price', 'image', 'user_id', 'activated'])
             ->latest()
-            ->with(['user:id,name'])
+            ->with(['user:id,firstname,lastname'])
             ->with(['tags' => function ($query) {
                 $query->select('tags.*');   //pour filtrer si des appartements ont des tag ou non
             }])
             ->with(['images:*'])
-            ->paginate(10);
+            ->get();
+
+        $formattedApartments = $apartments->map(function ($apartment) {
+            return $apartment->modelSetter();
+        });
 
         $storagePath = FilePaths::IMAGE_URL;
 
-
-        return Inertia::render(FilePaths::APARTMENTS, [
-            'apartments' => $apartments,
+        return Inertia::render(FilePaths::APARTMENT_TO_VERIFY, [
+            'apartments' => $formattedApartments,
             'storagePath' => $storagePath
         ]);
+    }
 
+    /// <summary>
+    /// Get all apartments.
+    /// </summary>
+    public function list()
+    {
+        $apartments = Apartment::query()
+            ->select(['id', 'name', 'postal_code', 'street', 'price', 'image', 'user_id'])
+            ->latest()
+            ->with(['user:id,firstname,lastname'])
+            ->with(['tags' => function ($query) {
+                $query->select('tags.*');   //pour filtrer si des appartements ont des tag ou non
+            }])
+            ->with(['images:*'])
+            ->where('apartments.activated', true)
+            ->get();
 
-        /* $appartements = Appartement::with('tags','images','user');
-         return view('appartements.index', [
-             'appartements' => $appartements
-         ]);
-         */
+        $formattedApartments = $apartments->map(function ($apartment) {
+            return $apartment->modelSetter();
+        });
+
+        $storagePath = FilePaths::IMAGE_URL;
+
+        return Inertia::render(FilePaths::APARTMENTS, [
+            'apartments' => $formattedApartments,
+            'storagePath' => $storagePath
+        ]);
     }
 
     public function index()
@@ -70,7 +91,7 @@ class ApartmentController extends Controller
     public function create()
     {
         $tags = Tag::all()->where("user_id", Auth()->id());
-        return Inertia::render(FilePaths::APARTMENT_CREATION,[
+        return Inertia::render(FilePaths::APARTMENT_CREATION, [
             'tags' => $tags
         ]);
     }
@@ -101,7 +122,7 @@ class ApartmentController extends Controller
 
         $appartement->user()->associate($validateData['user_id']);
         $appartement->save();
-        if(isset($validateData['tag_id'])){
+        if (isset($validateData['tag_id'])) {
             $appartement->tags()->sync($validateData['tag_id']);
         }
 
@@ -128,15 +149,14 @@ class ApartmentController extends Controller
      */
     public function show($id)
     {
-        $apartment = Apartment::with(['user:id,name'])->with(['images:*'])->with(['tags:*'])->findOrFail($id);
-//            ->with(['user:id,name'])
+        $apartment = Apartment::with(['user:id,firstname,lastname'])->with(['images:*'])->with(['tags:*'])->findOrFail($id);
 
         $intervalle = Reservation::where("apartment_id", $apartment->id)
-            ->select("start_time","end_time")
+            ->select("start_time", "end_time")
             ->get();
 
         $fermeture = ClosedPeriod::where("apartment_id", $apartment->id)
-            ->select("start_time","end_time")
+            ->select("start_time", "end_time")
             ->get();
 
         // Récupérer les dates déjà réservées pour cet appartement
@@ -204,7 +224,7 @@ class ApartmentController extends Controller
 
             $appartementImages = ApartmentImage::where('apartment_id', $appartement->id)->get();
 
-            if($appartementImages->count() >= 4) {
+            if ($appartementImages->count() >= 4) {
                 return redirect()->route('apartment.edit', $appartement->id)
                     ->with('error', "Il y a déjà 4 images pour votre appartement. Pour en ajouter une nouvelle, veuillez en supprimer une autre.");
             }
@@ -221,7 +241,7 @@ class ApartmentController extends Controller
 
         $appartement->update($validatedData);
 
-        if(isset($validatedData['tag_id'])){
+        if (isset($validatedData['tag_id'])) {
             $appartement->tags()->sync($validatedData['tag_id']);
         } else {
             $appartement->tags()->detach();
@@ -234,18 +254,19 @@ class ApartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) : RedirectResponse
+    public function destroy($id): RedirectResponse
     {
         $apartment = Apartment::findOrFail($id);
 
-//        Gate::authorize('delete', $appartement);
+        //        Gate::authorize('delete', $apartment);
 
         $apartment->delete();
 
-        return redirect()->route('apartment.index');
+        return redirect()->route('apartment.index')->with('message', 'Apartment deleted successfully');
     }
 
-    public function destroyImg($id) : RedirectResponse {
+    public function destroyImg($id): RedirectResponse
+    {
         $appartementImages = ApartmentImage::findOrFail($id);
 
         $appartementImages->delete();

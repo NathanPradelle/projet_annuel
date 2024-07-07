@@ -25,7 +25,7 @@ const DropMenu = () => {
   const onProfileChange = useCallback((data) => {
     axios
       .post(route('user.profileToUse'), { id: data.value })
-      .then(() => Inertia.reload());
+      .then(() => Inertia.get(route('apartment.list')));
   }, []);
 
   return (

@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { useState } from 'react';
 
 import Table from '@/Components/Table';
@@ -25,7 +26,7 @@ const UsersPage = ({ users, pagination }) => {
       headTitle='CustomerIndex'
       header={
         <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
-          Liste des clients
+          {t('user.list')}
         </h2>
       }
     >

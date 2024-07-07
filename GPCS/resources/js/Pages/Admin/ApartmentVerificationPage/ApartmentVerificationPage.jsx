@@ -12,7 +12,7 @@ import { dateDiffInDays } from '@/utils/date';
 const demain = new Date();
 demain.setDate(new Date().getDate() + 1);
 
-const ApartmentPage = ({
+const ApartmentVerificationPage = ({
   apartment,
   auth,
   storagePath,
@@ -104,4 +104,4 @@ const ApartmentPage = ({
   );
 };
 
-export default ApartmentPage;
+export default ApartmentVerificationPage;

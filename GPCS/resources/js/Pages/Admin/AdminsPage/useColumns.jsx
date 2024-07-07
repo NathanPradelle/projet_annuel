@@ -12,18 +12,19 @@ const useColumns = () => {
   const { data, setData, patch } = useForm();
   const [editingUser, setUserToEdit] = useState(null);
 
-  const handleEdit = useCallback((user) => {
-    setData(user);
-    setUserToEdit(user?.id);
-  }, []);
-
-  const handleSave = useCallback(
+  const handleEdit = useCallback(
     (user) => {
-      patch(route('users.update', user));
-      setUserToEdit(null);
+      setData(user);
+      setUserToEdit(user?.id);
     },
-    [data]
+    [editingUser]
   );
+
+  const handleSave = useCallback(() => {
+    patch(route('users.update', data));
+
+    setUserToEdit(null);
+  }, [data]);
 
   const handleDelete = (userId) => {
     const deleteUserUrl = route('users.destroy', { user: userId });
@@ -110,14 +111,18 @@ const useColumns = () => {
               options={profilesOptions}
             />
           ) : (
-            row.profiles.map((profile) => getProfileLabel(profile?.id))
+            <div className='flex-col'>
+              {row.profiles.map((profile, key) => (
+                <label key={key}>{getProfileLabel(profile?.id)}</label>
+              ))}
+            </div>
           ),
       },
       {
         renderCell: (row) =>
           editingUser === row.id ? (
             <button
-              onClick={() => handleSave(row)}
+              onClick={handleSave}
               className='text-indigo-600 hover:text-indigo-900'
             >
               Save
@@ -141,7 +146,15 @@ const useColumns = () => {
           ),
       },
     ],
-    [editingUser]
+    [
+      data,
+      editingUser,
+      profilesOptions,
+      handleEdit,
+      handleSave,
+      handleDelete,
+      setData,
+    ]
   );
 
   return columns;

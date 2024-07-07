@@ -1,5 +1,6 @@
 import { InertiaLink } from '@inertiajs/inertia-react';
 import { useForm } from '@inertiajs/react';
+import clsx from 'clsx';
 import { t } from 'i18next';
 import React, { useMemo } from 'react';
 
@@ -8,7 +9,7 @@ import SimpleField from '@/Components/SimpleField';
 import ApartmentWindow from '@/Features/ApartmentWindow/ApartmentWindow';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-const ApartmentsPage = ({ apartments, storagePath }) => {
+const ApartmentsToVerifyPage = ({ apartments, storagePath }) => {
   const { data, setData, errors } = useForm();
 
   const filteredApart = useMemo(() => {
@@ -37,10 +38,14 @@ const ApartmentsPage = ({ apartments, storagePath }) => {
   return (
     <AuthenticatedLayout
       head='Welcome'
-      className='bg-gradient-to-br from-gray-800 to-gray-600 flex-col'
+      headTitle='Apartments'
+      header={
+        <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
+          {t('apartment.apartmentsToVerify')}
+        </h2>
+      }
     >
-      <h3 className='flex-center dark:text-white/50 m-2'>{t('appLongName')}</h3>
-      <div className='p-4 sm:p-8 bg-white shadow sm:rounded-lg'>
+      <div className='bg-white overflow-hidden shadow-sm sm:rounded-lg'>
         <div className='flex gap-2'>
           <SimpleField
             id='priceMin'
@@ -74,11 +79,23 @@ const ApartmentsPage = ({ apartments, storagePath }) => {
                 apartment={apartment}
                 storagePath={storagePath}
                 actions={
-                  <SimpleButton to={route('apartment.show', apartment.id)}>
-                    {t('common.details')}
-                  </SimpleButton>
+                  <>
+                    <div
+                      className={clsx(
+                        'w-1_2 text-center',
+                        apartment?.activated ? 'bg-green' : 'bg-error'
+                      )}
+                    >
+                      {apartment?.activated
+                        ? t('common.isActivated')
+                        : t('common.isNotActivated')}
+                    </div>
+                    <SimpleButton to={route('apartment.show', apartment.id)}>
+                      {t('common.details')}
+                    </SimpleButton>
+                  </>
                 }
-                bg='bg-strawberry'
+                bg='bg-purple'
               />
             ))}
           </div>
@@ -97,4 +114,4 @@ const ApartmentsPage = ({ apartments, storagePath }) => {
   );
 };
 
-export default ApartmentsPage;
+export default ApartmentsToVerifyPage;

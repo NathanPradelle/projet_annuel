@@ -9,31 +9,20 @@
     "dateStart": "Date de début",
     "dateEnd": "Date de fin",
     "delete": "Supprimer",
+    "description": "Description",
     "details": "Détails",
     "edit": "Éditer",
     "email": "Adresse mail",
+    "errorOccurred": "Une erreur est survenue",
+    "isActivated": "Est actif",
+    "isNotActivated": "Est inactif",
     "modify": "Modifier",
     "name": "Nom",
     "other": "Autre",
     "password": "Mot de passe",
-    "save": "Enregistrer"
-  },
-  "errorMessage": {
-    "401": "Veuillez vous authentifier pour accéder à cette page",
-    "403": "Vous n'avez les pas droits permettant l'accès à cette page",
-    "404": "La page que vous recherchez n'existe pas",
-    "409": "La ressource n'est pas a jour. Recharger la page avant de faire votre action",
-    "422": "Un ou plusieurs de vos données saisies ne sont pas acceptables (un email ou autre information qui a déjà été prise)",
-    "arrayMinLengthOne": "Au moins 1 élément doit être sélectionné",
-    "cannotBeEmpty": "Le champ est obligatoire",
-    "cityError": "Saisie incorrecte, entrez un code postal ou une ville",
-    "disconnected": "Vous avez été déconnecté, veuillez vous authentifier à nouveau",
-    "generic": "Une erreur est survenue",
-    "inputError": "saisie incorrecte,",
-    "invalidFilename": "Un nom de fichier ne peut pas contenir les caractères suivants:  \\ / : “ * ? < > |",
-    "noInformationSent": "aucune information n'a été envoyée",
-    "notFound": "Erreur : La valeur recherchée n'a pas été trouvée",
-    "takenEmail": "Un des emails saisis n'est plus disponible"
+    "save": "Enregistrer",
+    "success": "Action réussi",
+    "successCreation": "Élément créé"
   },
   "civility": {
     "F": "Mme.",
@@ -52,8 +41,8 @@
     "sign": "Signer la charte",
     "confirm": "Je soussigné(e) {{name}} m'engage:",
     "error": "La charte n'est pas signée",
-    "firtsPara": "Votre candidature sur cette session de formation a été pré-retenue pour intégrer le CFA et devenir ainsi un(e) futur(e) alternant(e), sous réserve que vous soyez recruté(e) par un employeur au plus tard 3 mois après le 1er jour de formation.",
-    "firtscommitment": "A participer aux différents ateliers #TrouveTonAlternance CFA afin de dynamiser ma recherche d'entreprise",
+    "firtsPara": "Votre candidature sur ce service a été pré-retenue pour intégrer le GPCS et devenir ainsi un partenaire.",
+    "firtscommitment": "A participer aux différents ateliers GPCS afin de dynamiser ma recherche",
     "success": "La charte a bien été signée"
   },
   "travelers": {
@@ -108,18 +97,21 @@
       "signIn": "S'inscrire"
     },
     "admin": {
+      "apartments": "Appartements",
       "managers": "Liste des Gérants",
-      "users": "Liste d'utilisateur",
-      "tags": "Liste des Tags",
-      "services": "Services enregistré"
+      "services": "Services",
+      "tags": "Tags",
+      "users": "Liste d'utilisateur"
     }
   },
   "user": {
+    "list": "Liste des clients",
     "lastname": "Nom",
     "firstname": "Prénom",
     "profils": "Profiles de l'utilisateur"
   },
   "apartment": {
+    "apartmentsToVerify": "Appartements à vérifier",
     "askYours": "Et si vous proposiez le vôtre ?",
     "nbPeople": "Nombre de personnes",
     "noApartmentAvailable": "Aucun appartement disponible...",
@@ -127,10 +119,12 @@
     "perNight": "par nuit",
     "priceMin": "Prix minimum",
     "priceMax": "Prix maximum",
-    "rent": "Réserver"
+    "rent": "Réserver",
+    "rentedBy": "Mise en réservation par"
   },
   "myApartment": {
     "title": "Mes appartements",
+    "reservationOnMyApartment": "Réservation sur mon appartement",
     "noApartments": "Vous n'avez aucun appartement..."
 
   },

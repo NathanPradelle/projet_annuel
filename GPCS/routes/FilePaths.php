@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Storage;
 
-class FilePaths {
+class FilePaths
+{
     /* Unauthenticated */
     const WELCOME = 'Unauthenticated/Welcome/Welcome';
     const APARTMENTS = 'Unauthenticated/ApartmentsPage/ApartmentsPage';
@@ -29,6 +30,9 @@ class FilePaths {
     const TAGS = 'Admin/TagsPage/TagsPage';
     const USERS = 'Admin/UsersPage/UsersPage';
     const USER = 'Admin/UserPage/UserPage';
+    const APARTMENT_TO_VERIFY = 'Admin/ApartmentsToVerifyPage/ApartmentsToVerifyPage';
+    const APARTMENT_VERIFICATION = 'Admin/ApartmentVerificationPage/ApartmentVerificationPage';
+
 
     /* Lessor */
     const APARTMENT_CREATION = 'Lessor/ApartmentCreationPage/ApartmentCreationPage';

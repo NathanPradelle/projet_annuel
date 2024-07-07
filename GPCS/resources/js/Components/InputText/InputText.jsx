@@ -36,7 +36,7 @@ const InputText = (
       name={id}
       type={type}
       className={clsx(
-        'border-1-grey focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ',
+        'border-1-grey focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm',
         disabled ? 'text-grey bg-transparent' : 'bg-white',
         className
       )}

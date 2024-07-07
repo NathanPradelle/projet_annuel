@@ -192,19 +192,19 @@ class UserController extends Controller
      */
     protected function updateUserProfiles(User $user, array $profiles)
     {
-        $user->userProfiles()->delete()->whereIn('profiles.id', [1, 2, 3, 4]);
+        $user->userProfiles()->whereIn('user_profiles.profile', [1, 2, 3, 4])->delete();
 
         $userProfiles = array();
         foreach ($profiles as $profile) {
-            array_push($userProfiles, new UserProfile(
-                [
+            if (in_array($profile['id'], [1, 2, 3, 4])) {
+                array_push($userProfiles, new UserProfile([
                     'user' => $user->id,
                     'profile' => $profile['id'],
-                ]
-            ));
+                ]));
+            }
         }
 
-        $user->userProfiles()->saveMany($userProfiles);
+        $user->userProfiles()->whereIn('user_profiles.profile', [1, 2, 3, 4])->saveMany($userProfiles);
     }
 
     /**

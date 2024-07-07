@@ -56,11 +56,13 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class);
 
-    Route::get('/admin', [UserController::class, 'indexAdmin'])->name('users.admin');
-    Route::post('/admin', [UserController::class, 'StoreAdmin'])->name('admin.store');
-    Route::get('/admin/create', [UserController::class, 'CreateAdmin'])->name('admin.create');
+    Route::middleware(CheckUserProfile::class . ':isAdmin')->group(function () {
+        Route::get('/admin', [UserController::class, 'indexAdmin'])->name('users.admin');
+        Route::post('/admin', [UserController::class, 'StoreAdmin'])->name('admin.store');
+        Route::get('/admin/create', [UserController::class, 'CreateAdmin'])->name('admin.create');
+    });
 
-    Route::middleware(CheckUserProfile::class.':isManager')->group(function () {
+    Route::middleware(CheckUserProfile::class . ':isManager')->group(function () {
         Route::get('/profile/get', [ProfileController::class, 'get'])->name('profile.get');
 
         Route::get('/users', [UserController::class, 'indexCustomer'])->name('users');
@@ -69,6 +71,20 @@ Route::middleware('auth')->group(function () {
         Route::post('/user/exclude', [UserController::class, 'RGPDCustomer'])->name('user.exclude');
         Route::get('/user/{id}/ban', [BanController::class, 'addban']);
         Route::get('/user/{id}/ban/list', [BanController::class, 'banlist']);
+
+        Route::get('/apartments', [ApartmentController::class, 'managerList'])->name('apartment.managerList');
+    });
+
+    Route::middleware(CheckUserProfile::class . ':isProvider')->group(function () {
+        //
+    });
+
+    Route::middleware(CheckUserProfile::class . ':isTraveler')->group(function () {
+        //
+    });
+
+    Route::middleware(CheckUserProfile::class . ':isLessor')->group(function () {
+        Route::get('/myApartments', [ApartmentController::class, 'index'])->name('lessor.myApartments');
     });
 
     Route::get('/services', [ServiceController::class, 'list'])->name('services');
@@ -80,7 +96,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/service/provider', [ServiceController::class, 'addProviderPage']);
     Route::post('/service/provider/price', [PriceController::class, 'priceUpdate'])->name('service.provider.price');
 
-    Route::resource('apartment', ApartmentController::class);
+    Route::resource('apartment', ApartmentController::class); // TODO remove this, divide routes in middlewares
     Route::delete('/appartimage/{id}', [ApartmentController::class, 'destroyImg'])->name('appart.destroyImg');
 
     Route::resource('tag', TagController::class);
@@ -102,7 +118,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/fermetures/create', [ClosedPeriodController::class, 'create'])->name('fermeture.create');
         Route::post('/fermetures', [ClosedPeriodController::class, 'store'])->name('fermeture.store');
     });
-    Route::get('/payment',[PaymentController::class, 'payment']);
+    Route::get('/payment', [PaymentController::class, 'payment']);
 
     Route::get('/factureclient/{id}', [FactureController::class, 'client'])->name('facture.client.id'); // need fix
 
@@ -116,4 +132,4 @@ Route::get('/create-payment-intent', [StripeController::class, 'createPaymentInt
 Route::get('/check-table', [CheckTableController::class, 'checkTableBan']);
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -8,7 +8,7 @@ export const getCurrentUser = () => {
 };
 
 export const getUserName = (user) => {
-  return `${user.firstname} ${user.lastname}`;
+  return `${user?.firstname} ${user?.lastname}`;
 };
 
 export const getProfileLabel = (profileId) => {
@@ -39,13 +39,13 @@ export const isUserManager = (user) => {
 };
 
 export const isUserLessor = (user) => {
-  return user?.profiles?.some((profile) =>
-    [...MANAGER_PROFILES, PROFILE.LESSOR].includes(profile.id)
-  );
+  return user?.profiles?.some((profile) => PROFILE.LESSOR == profile?.id);
 };
 
 export const isUserProvider = (user) => {
-  return user?.profiles?.some((profile) =>
-    [...MANAGER_PROFILES, PROFILE.PROVIDER].includes(profile.id)
-  );
+  return user?.profiles?.some((profile) => PROFILE.PROVIDER == profile?.id);
+};
+
+export const isUserTraveler = (user) => {
+  return user?.profiles?.some((profile) => PROFILE.TRAVELER == profile?.id);
 };

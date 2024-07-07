@@ -1,23 +1,38 @@
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink } from '@inertiajs/inertia-react';
+import { usePage } from '@inertiajs/react';
+import clsx from 'clsx';
 import { t } from 'i18next';
+import { useEffect } from 'react';
 
 import SimpleButton from '@/Components/Buttons/SimpleButton';
 import ApartmentWindow from '@/Features/ApartmentWindow/ApartmentWindow';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { toastActionSuccess, toastCommonError } from '@/utils/toast';
 
 const MyApartmentsPage = ({ apartments, storagePath }) => {
+  const apiResult = usePage().props?.flash?.message;
+  console.log(usePage().props);
   const handleDelete = (apartmentId) => {
     const deleteTagUrl = route('apartment.destroy', { apartment: apartmentId });
     Inertia.delete(deleteTagUrl, {
       onSuccess: () => {
-        console.log('Apartment deleted successfully');
+        // Inertia.reload({
+        //   preserveScroll: true,
+        //   replace: true,
+        //   only: ['flash'],
+        // });
       },
       onError: (error) => {
+        toastCommonError(error);
         console.error('Failed to delete apartment:', error);
       },
     });
   };
+
+  useEffect(() => {
+    apiResult && toastActionSuccess();
+  }, [apiResult]);
 
   return (
     <AuthenticatedLayout
@@ -38,11 +53,24 @@ const MyApartmentsPage = ({ apartments, storagePath }) => {
                 storagePath={storagePath}
                 actions={
                   <>
-                    <SimpleButton
-                      href={route('reservation.showAll', apartment.id)}
+                    {' '}
+                    <div
+                      className={clsx(
+                        'w-1_2 text-center',
+                        apartment?.activated ? 'bg-green' : 'bg-error'
+                      )}
                     >
-                      Réservations
-                    </SimpleButton>
+                      {apartment?.activated
+                        ? t('common.isActivated')
+                        : t('common.isNotActivated')}
+                    </div>
+                    {!!apartment?.activated && (
+                      <SimpleButton
+                        href={route('reservation.showAll', apartment.id)}
+                      >
+                        {t('myApartment.reservationOnMyApartment')}
+                      </SimpleButton>
+                    )}
                     <SimpleButton onClick={() => handleDelete(apartment.id)}>
                       {t('common.delete')}
                     </SimpleButton>
