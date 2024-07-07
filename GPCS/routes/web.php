@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/ticket', [TicketController::class, 'store'])->name('ticket.store');
     Route::get('/tickets/{Id}', [TicketController::class, 'customerIndex'])->name('tickets.index');
     Route::get('/ticket/{id}', [TicketController::class, 'show'])->name('ticket.show');
+    Route::put('/ticket/{id}', [TicketController::class, 'update'])->name('ticket.update');
 
     Route::post('/userProfile', [UserController::class, 'profileToUse'])->name('user.profileToUse');
 

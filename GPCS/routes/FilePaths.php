@@ -22,6 +22,8 @@ class FilePaths
     const TICKET_CREATION = "Authenticated/TicketCreationPage/TicketCreationPage";
     const TICKET_INDEX = "Authenticated/TicketIndex/TicketIndex";
 
+    const TICKET_SHOW = "Authenticated/TicketShow/TicketShow";
+
     /* Admin */
     const ADMIN_CREATION = 'Admin/AdminCreationPage/AdminCreationPage';
     const ADMINS_PAGE = 'Admin/AdminsPage/AdminsPage';
