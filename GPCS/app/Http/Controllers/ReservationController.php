@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Models\ClosedPeriod;
 use App\Models\Reservation;
+use App\Models\Service;
+use App\Models\reservation_service;
 use FilePaths;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class ReservationController extends Controller
@@ -87,6 +90,31 @@ class ReservationController extends Controller
     /// <return> reservation page with a reservationVm </return>
     public function store(Request $request)
     {
+        //dd($request);
+
+        $serviceIds = [];
+
+        $servicefilter = collect($request->all())->filter(function ($value, $key) {
+            return Str::startsWith($key, 'service-');
+        })->all();
+        
+        $servicesID = $servicefilter;
+        $id = [];
+
+        foreach ($servicesID as $key => $value) {
+            $parts = explode('-', $key);
+            $serviceIds[] = end($parts);
+        }
+
+        foreach($serviceIds as $service){
+            $service = Service::find($service)->first();
+            $services[] = $service;
+        }
+
+        //dd($services);
+
+        //dd($data);
+
         $validatedData = $request->validate([
             'id' => ['required', 'exists:apartments,id'],
             'dateStart' => ['required', 'date', 'after_or_equal:today'],
@@ -124,9 +152,24 @@ class ReservationController extends Controller
 
         $reservation->save();
 
+        foreach($services as $service){
+            //dd($service,$service->id);
+            $relation = new reservation_service([
+                'reservation_id' => $reservation->id,
+                'service_id' => $service->id,
+            ]);
+            $relation->save();
+        }
+
         return redirect()->route('reservation.index')->with('success', "Réservation bien prise en compte");       
     }
 
+
+    public function manage(){
+        $reservations = Reservation::with(['user', 'apartment', 'services', 'providers'])->get();
+        //dd($reservations);
+        return Inertia::render(FilePaths::RESERVATION_MANAGEMENT, ['reservations' => $reservations]);
+    }
 
 
     /**

@@ -7,6 +7,7 @@ use App\Models\ApartmentImage;
 use App\Models\ClosedPeriod;
 use App\Models\Reservation;
 use App\Models\Tag;
+use App\Models\Service;
 use Carbon\Carbon;
 use FilePaths;
 use Illuminate\Http\RedirectResponse;
@@ -150,6 +151,8 @@ class ApartmentController extends Controller
             })
             ->toArray();
 
+            $services = service::get();
+            //dd($services);
 
         $storagePath = FilePaths::IMAGE_URL;
         return Inertia::render(FilePaths::APARTMENT, [
@@ -157,7 +160,8 @@ class ApartmentController extends Controller
             'fermetures' => $fermeture,
             'intervalles' => $intervalle,
             'reservedDates' => $reservedDates,
-            'storagePath' => $storagePath
+            'storagePath' => $storagePath,
+            'services' => $services
         ]);
     }
     /**
@@ -167,6 +171,7 @@ class ApartmentController extends Controller
     {
         $appartement = Apartment::findOrFail($id);
         //        Gate::authorize('update', $appartement);
+
         $tags = Tag::all()->where("user_id", Auth()->id());
         return Inertia::render('Apartment.edit', [
             'appartement' => $appartement,

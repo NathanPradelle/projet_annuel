@@ -30,6 +30,8 @@ class FilePaths {
     const USERS = 'Admin/UsersPage/UsersPage';
     const USER = 'Admin/UserPage/UserPage';
 
+    const RESERVATION_MANAGEMENT = "Admin/ReservationManagementPage/ReservationManagementPage";
+
     /* Lessor */
     const APARTMENT_CREATION = 'Lessor/ApartmentCreationPage/ApartmentCreationPage';
     const MY_APARTMENT = 'Lessor/MyApartmentPage/MyApartmentPage';
@@ -47,4 +49,6 @@ class FilePaths {
     const SERVICE_FEE = "Provider/ServiceFeePage/ServiceFeePage";
     const SERVICE = "Provider/ServicesPage/ServicesPage";
     const SERVICE_ADD_PROVIDER = "Provider/AddProviderPage/AddProviderPage";
+
+
 }

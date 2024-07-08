@@ -1,0 +1,3 @@
+import ReservationManagementPage from './ReservationManagementPage';
+
+export default ReservationManagementPage;

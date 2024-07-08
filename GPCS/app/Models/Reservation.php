@@ -6,6 +6,7 @@ use App\Events\Reservation as EventsReservation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Reservation extends Model
 {
@@ -33,6 +34,16 @@ class Reservation extends Model
 
     public function apartment() : BelongsTo{
         return $this->belongsTo(Apartment::class, 'apartment_id');
+    }
+
+    public function services() : BelongsToMany
+    {
+        return $this->belongsToMany(Service::class, 'reservation_service_provider', 'reservation_id', 'service_id',);
+    }
+
+    public function providers() : BelongsToMany
+    {
+        return $this->belongsToMany(provider_service::class, 'reservation_service_provider', 'reservation_id', 'provider_id',);
     }
 
     /// <summary>

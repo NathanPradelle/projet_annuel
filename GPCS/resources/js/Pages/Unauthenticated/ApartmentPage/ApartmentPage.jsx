@@ -3,6 +3,7 @@ import { t } from 'i18next';
 import React, { useCallback, useMemo } from 'react';
 
 import SimpleButton from '@/Components/Buttons/SimpleButton';
+import SimpleCheckbox from '@/Components/SimpleCheckbox';
 import SimpleDate from '@/Components/SimpleDate';
 import SimpleField from '@/Components/SimpleField';
 import ApartmentWindowFull from '@/Features/ApartmentWindowFull/ApartmentWindowFull';
@@ -19,7 +20,9 @@ const ApartmentPage = ({
   // fermetures,
   // intervalles,
   // reservedDates,
+  services,
 }) => {
+  console.log(services);
   const { data, setData, post, errors } = useForm(apartment);
   const totalPrice = useMemo(() => {
     if (data?.dateStart && data?.dateEnd && data?.guestCount > 0) {
@@ -81,6 +84,20 @@ const ApartmentPage = ({
                   errorMessage={errors.guestCount}
                   required
                 />
+
+                {services.map((service, index) => (
+                  <SimpleCheckbox
+                    key={index}
+                    id={`${service.label}`}
+                    className='flex gap-0_5 mt-2'
+                    //value={`${service.id}`}
+                    label={`${service.label}`}
+                    onChange={(e) =>
+                      setData('service-' + service.id, e.target.checked)
+                    }
+                    errorMessage={errors.password}
+                  />
+                ))}
 
                 <div className='mb-4' id='total_price_container'>
                   <p>

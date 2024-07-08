@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
+
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Facture;
@@ -27,7 +29,14 @@ class FactureController extends Controller
 
         //dd($reservation);
         $pdf = Pdf::loadView('factureclientreservation',compact('user', 'reservation','total_price'));
-        return $pdf->stream('invoice.pdf');
-        return view('factureclient');
+
+        // Définis le chemin où tu veux sauvegarder le PDF
+        $filePath = 'pdf/facture_' . $id . '.pdf';
+
+        // Enregistre le PDF localement
+        Storage::put($filePath, $pdf->output());
+
+        //return $pdf->stream('invoice.pdf');
+        //return view('factureclient');
     }
 }

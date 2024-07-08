@@ -14,6 +14,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\BanController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\PriceController;
 use App\Http\Controllers\checkTableController;
 use App\Http\Middleware\CheckUserProfile;
@@ -89,7 +90,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/reservation/{id}/edit', [ReservationController::class, 'edit'])->name('reservation.edit');
     Route::get('reservation/create/{apartment_id}', [ReservationController::class, 'create'])->name('reservation.create');
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservation.index');
+    Route::get('/reservations/management', [ReservationController::class, 'manage'])->name('reservation.index');
     //Route::get('/reservation', [ReservationController::class, 'test'])->name('reservation.test'); //test
+
     Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
     Route::patch('/reservation/validate/{id}', [ReservationController::class, 'validate'])->name('reservation.validate');
     Route::patch('/reservation/refused/{id}', [ReservationController::class, 'refused'])->name('reservation.refused');
@@ -114,6 +117,8 @@ Route::get('/', [ApartmentController::class, 'list'])->name('apartment.list');
 Route::get('/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
 
 Route::get('/check-table', [CheckTableController::class, 'checkTableBan']);
+
+Route::get('/mail-test',[MailController::class, 'test']);
 
 
 require __DIR__.'/auth.php';
