@@ -6,13 +6,13 @@ import { t } from 'i18next';
 import { useEffect } from 'react';
 
 import SimpleButton from '@/Components/Buttons/SimpleButton';
-import ApartmentWindow from '@/Features/ApartmentWindow/ApartmentWindow';
+import ApartmentWindow from '@/Features/ApartmentWindow';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { toastActionSuccess, toastCommonError } from '@/utils/toast';
 
 const MyApartmentsPage = ({ apartments, storagePath }) => {
   const apiResult = usePage().props?.flash?.message;
-  console.log(usePage().props);
+
   const handleDelete = (apartmentId) => {
     const deleteTagUrl = route('apartment.destroy', { apartment: apartmentId });
     Inertia.delete(deleteTagUrl, {

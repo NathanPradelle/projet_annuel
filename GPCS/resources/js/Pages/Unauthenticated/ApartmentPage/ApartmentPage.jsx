@@ -5,7 +5,7 @@ import React, { useCallback, useMemo } from 'react';
 import SimpleButton from '@/Components/Buttons/SimpleButton';
 import SimpleDate from '@/Components/SimpleDate';
 import SimpleField from '@/Components/SimpleField';
-import ApartmentWindowFull from '@/Features/ApartmentWindowFull/ApartmentWindowFull';
+import ApartmentWindowFull from '@/Features/ApartmentWindowFull';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { dateDiffInDays } from '@/utils/date';
 

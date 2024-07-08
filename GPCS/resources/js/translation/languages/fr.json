@@ -20,7 +20,9 @@
     "name": "Nom",
     "other": "Autre",
     "password": "Mot de passe",
+    "postalCode": "Code postal",
     "save": "Enregistrer",
+    "street": "Rue",
     "success": "Action réussi",
     "successCreation": "Élément créé"
   },
