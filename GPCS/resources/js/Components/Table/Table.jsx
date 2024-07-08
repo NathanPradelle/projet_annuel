@@ -66,7 +66,7 @@ const Table = ({ seachInput, columns, data, pagination, placeholder }) => {
           </div>
           <div className='mt-4 text-sm text-gray-500'>
             Page {pagination.current_page} of {pagination.last_page}, Total:{' '}
-            {pagination.total} users
+            {pagination.total}
           </div>
         </>
       )}

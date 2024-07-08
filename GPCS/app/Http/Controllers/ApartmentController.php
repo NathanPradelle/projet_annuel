@@ -274,4 +274,16 @@ class ApartmentController extends Controller
         return redirect()->route('apartment.edit', $appartementImages->apartment_id)
             ->with('success', "Appartement mis à jour avec succès");
     }
+
+    public function validate($id){
+
+        $appartement = Apartment::findOrFail($id);
+
+        $appartement->activated = 1;
+
+        $appartement->save();
+
+        return redirect()->route("apartment.managerList")
+            ->with('success', "Appartement validé à jour avec succès");
+    }
 }

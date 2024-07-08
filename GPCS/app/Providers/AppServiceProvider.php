@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -29,6 +30,15 @@ class AppServiceProvider extends ServiceProvider
                 $notifications = $user->notifications()->latest()->take(5)->get();
                 $view->with('notifications', $notifications)
                     ->with('user', $user);
+            }
+        });
+
+        View::composer('*', function ($view) {
+            if (Auth::check()) {
+                $messages = Message::with('user')->get();
+                $view->with('messages', $messages);
+            } else {
+                $view->with('messages', []);
             }
         });
     }

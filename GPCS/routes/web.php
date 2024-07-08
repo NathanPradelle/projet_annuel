@@ -21,6 +21,7 @@ use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\MessageController;
 
 require_once 'FilePaths.php';
 
@@ -40,7 +41,16 @@ Route::get('/dashboard', function () {
     return Inertia::render(FilePaths::DASHBOARD);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::middleware('auth')->group(function () {
+
+    Route::post('/messages', [MessageController::class, 'sendMessage']);
+    Route::get('/chat/{user}', [MessageController::class, 'showChat'])->name('chat.show');
+
+    Route::get('/demandes', [UserController::class, 'demandesMenu'])->name('users.demandes');
+    Route::get('/demandes/prestataires', [UserController::class, 'prestataireRequest'])->name('demande.prestataire');
+    Route::get('/demandes/prestations', [UserController::class, 'prestationRequest'])->name('demande.prestatation');
+    Route::get('/demandes/bailleurs', [UserController::class, 'bailleurRequest'])->name('demande.bailleur');
 
     Route::get('/contact', [TicketController::class, 'contact'])->name('contact.show');
     Route::get('/ticket/create', [TicketController::class, 'create'])->name('ticket.create');
@@ -74,6 +84,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/user/{id}/ban/list', [BanController::class, 'banlist']);
 
         Route::get('/apartments', [ApartmentController::class, 'managerList'])->name('apartment.managerList');
+        Route::put('/apartment/{id}', [ApartmentController::class, 'validate'])->name('apartment.validate');
     });
 
     Route::middleware(CheckUserProfile::class . ':isProvider')->group(function () {

@@ -41,6 +41,11 @@ const useColumns = () => {
       },
       {
         renderCell: (row) => (
+            <Link href={route('chat.show', row?.id)}>chat</Link>
+        ),
+      },
+      {
+        renderCell: (row) => (
           <a
             href={route('user.exclude', { user: row?.id })}
             className='text-red-600 hover:text-red-900'

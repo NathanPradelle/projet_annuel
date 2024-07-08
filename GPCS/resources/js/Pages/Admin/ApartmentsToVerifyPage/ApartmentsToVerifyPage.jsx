@@ -45,6 +45,9 @@ const ApartmentsToVerifyPage = ({ apartments, storagePath }) => {
                     <SimpleButton to={route('apartment.show', apartment.id)}>
                       {t('common.details')}
                     </SimpleButton>
+                    <SimpleButton to={route('apartment.validate', apartment.id)}>
+                        valider
+                    </SimpleButton>
                   </>
                 }
                 bg='bg-purple'

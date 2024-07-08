@@ -1,6 +1,5 @@
-import { Head, Link } from '@inertiajs/react';
+import {Head, Link, usePage} from '@inertiajs/react';
 import clsx from 'clsx';
-
 import NavBars from '@/Components/NavBars';
 
 const AuthenticatedLayout = ({ headTitle, header, className, children }) => {
@@ -22,6 +21,7 @@ const AuthenticatedLayout = ({ headTitle, header, className, children }) => {
         className={clsx('py-12  max-w-7xl mx-auto', className)}
       >
         {children}
+
       </main>
 
       <footer className='py-4 flex justify-center items-center text-sm text-black dark:text-white/70 bg-gray-800 relative'>

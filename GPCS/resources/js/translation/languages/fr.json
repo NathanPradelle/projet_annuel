@@ -101,9 +101,11 @@
     "admin": {
       "apartments": "Appartements",
       "managers": "Liste des Gérants",
+      "users": "Liste d'utilisateur",
+      "tags": "Liste des Tags",
       "services": "Services",
-      "tags": "Tags",
-      "users": "Liste d'utilisateur"
+      "demandes": "Demandes"
+
     }
   },
   "user": {

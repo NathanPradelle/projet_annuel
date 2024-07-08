@@ -216,4 +216,23 @@ class UserController extends Controller
 
         return redirect()->route('users.admin')->with('success', 'L\'utilisateur ' . $user->firstname . ' a bien été supprimé');
     }
+    public function demandesMenu()
+    {
+        return Inertia::render(FilePaths::DEMANDES_MENU);
+    }
+
+    public function prestationRequest()
+    {
+        return Inertia::render(FilePaths::USER);
+    }
+
+    public function prestataireRequest()
+    {
+        return Inertia::render(FilePaths::USER);
+    }
+
+    public function bailleurRequest()
+    {
+        return Inertia::render(FilePaths::USER);
+    }
 }
