@@ -16,7 +16,8 @@ class Apartment extends Model
     protected $policy = ApartementPolicy::class;
 
     protected $fillable = [
-        'name',
+        'postal_code',
+        'street',
         'address',
         'surface',
         'guestCount',
@@ -29,23 +30,28 @@ class Apartment extends Model
         'availabillity'
     ];
 
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function images(): HasMany {
+    public function images(): HasMany
+    {
         return $this->hasMany(ApartmentImage::class);
     }
 
-    public function reservations(): HasMany {
+    public function reservations(): HasMany
+    {
         return $this->hasMany(Reservation::class);
     }
 
-    public function tags(): BelongsToMany {
+    public function tags(): BelongsToMany
+    {
         return $this->belongsToMany(Tag::class, 'apartment_tags');
     }
 
-    public function closedperiodes(): HasMany {
+    public function closedperiodes(): HasMany
+    {
         return $this->hasMany(ClosedPeriod::class);
     }
 
@@ -58,7 +64,8 @@ class Apartment extends Model
         $apartment = [
             'id' =>  $this?->id,
             'name' => $this?->name,
-            'address' =>  $this?->address,
+            'postalCode' =>  $this?->postal_code,
+            'street' =>  $this?->street,
             'guestCount' =>  $this?->guestCount,
             'roomCount' =>  $this?->roomCount,
             'description' =>  $this?->description,
@@ -66,13 +73,13 @@ class Apartment extends Model
             'availability' =>  $this?->availability,
             'createdAt' =>  $this?->created_at,
             'updatedAt' =>  $this?->updated_at,
-            
+
             'user' => $this?->user,
             'images' => $this?->images->map(function ($image) {
                 return [
                     'id' => $image->id,
                     'image' => $image->image
-                    ];
+                ];
             })->toArray(),
             'reservations' => $this?->reservations->map(function ($reservation) {
                 return ['id' => $reservation->id];
@@ -97,7 +104,8 @@ class Apartment extends Model
         $apartmentData = [
             'id' => isset($vm?->id) ? $vm->id : null,
             'name' => isset($vm?->name) ? $vm->name : null,
-            'address' => isset($vm?->address) ? $vm->address : null,
+            'postal_code' => isset($vm?->postalCode) ? $vm->postalCode : null,
+            'street' => isset($vm?->street) ? $vm->street : null,
             'guestCount' => isset($vm?->guestCount) ? $vm->guestCount : null,
             'roomCount' => isset($vm?->roomCount) ? $vm->roomCount : null,
             'description' => isset($vm?->description) ? $vm->description : null,
@@ -108,7 +116,7 @@ class Apartment extends Model
         ];
 
         $apartment = new Apartment($apartmentData);
-        
+
         if (isset($vm?->user)) {
             $apartment->user = $vm->user;
         }
@@ -124,7 +132,7 @@ class Apartment extends Model
         if (isset($vm?->closedPeriodes)) {
             $apartment->tags = $vm->closedperiodes;
         }
-        
+
         return $apartment;
     }
 }

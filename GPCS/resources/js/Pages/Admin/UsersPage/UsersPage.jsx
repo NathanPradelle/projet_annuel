@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { useState } from 'react';
 
 import Table from '@/Components/Table';
@@ -11,8 +12,8 @@ const UsersPage = ({ users, pagination }) => {
   // Fonction pour filtrer les utilisateurs par nom ou par e-mail
   const filteredUsers = users?.filter(
     (user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+      user?.name?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      user?.email?.toLowerCase().includes(searchTerm?.toLowerCase())
   );
 
   // Gestionnaire de changement pour la recherche
@@ -25,7 +26,7 @@ const UsersPage = ({ users, pagination }) => {
       headTitle='CustomerIndex'
       header={
         <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
-          Liste des clients
+          {t('user.list')}
         </h2>
       }
     >

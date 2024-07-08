@@ -1,6 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { t } from 'i18next';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import PrimaryButton from '@/Components/Buttons/PrimaryButton';
 import SimpleField from '@/Components/SimpleField';
@@ -8,7 +8,8 @@ import GuestLayout from '@/Layouts/GuestLayout/GuestLayout';
 
 const Register = () => {
   const { data, setData, post, processing, errors, reset } = useForm({
-    name: '',
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -18,34 +19,46 @@ const Register = () => {
     return () => {
       reset('password', 'password_confirmation');
     };
-  }, []);
+  }, [errors]);
 
-  const submit = (e) => {
-    e.preventDefault();
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    post(route('register'));
-  };
+      post(route('register', data));
+    },
+    [data]
+  );
 
   return (
     <GuestLayout>
       <Head title='Register' />
 
-      <form onSubmit={submit}>
+      <form onSubmit={onSubmit}>
         <SimpleField
-          id='name'
-          value={data.name}
-          label={t('common.name')}
-          onChange={(e) => setData('name', e.target.value)}
-          errorMessage={errors.name}
+          id='firstname'
+          setdata={setData}
+          value={data.firstname}
+          label={t('user.firstname')}
+          errorMessage={errors.firstname}
+          required
+        />
+
+        <SimpleField
+          id='lastname'
+          onChange={(v) => setData('lastname', v?.toUpperCase())}
+          value={data.lastname}
+          label={t('user.lastname')}
+          errorMessage={errors.lastname}
           required
         />
 
         <SimpleField
           id='email'
           type='email'
+          setdata={setData}
           value={data.email}
           label={t('common.email')}
-          onChange={(e) => setData('email', e.target.value)}
           errorMessage={errors.email}
           required
         />
@@ -53,9 +66,9 @@ const Register = () => {
         <SimpleField
           id='password'
           type='password'
+          setdata={setData}
           value={data.password}
           label={t('signIn.password.label')}
-          onChange={(e) => setData('password', e.target.value)}
           errorMessage={errors.password}
           required
         />
@@ -63,9 +76,9 @@ const Register = () => {
         <SimpleField
           id='password_confirmation'
           type='password'
+          setdata={setData}
           value={data.password_confirmation}
           label={t('signIn.password.confirmLabel')}
-          onChange={(e) => setData('password_confirmation', e.target.value)}
           errorMessage={errors.password_confirmation}
           required
         />

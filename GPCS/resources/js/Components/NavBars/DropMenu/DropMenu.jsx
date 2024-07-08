@@ -5,7 +5,7 @@ import React, { useCallback } from 'react';
 
 import DropdownButton from '@/Components/Buttons/DropdownButton';
 import SimpleList from '@/Components/SimpleList';
-import { getCurrentUser, getProfileLabel } from '@/utils/user';
+import { getCurrentUser, getProfileLabel, getUserName } from '@/utils/user';
 
 import NavLink from '../NavLink';
 
@@ -25,14 +25,14 @@ const DropMenu = () => {
   const onProfileChange = useCallback((data) => {
     axios
       .post(route('user.profileToUse'), { id: data.value })
-      .then(() => Inertia.reload());
+      .then(() => Inertia.get(route('apartment.list')));
   }, []);
 
   return (
     <DropdownButton
       trigger={
         <button type='button' className='nav-link'>
-          {currentUser.name}
+          {getUserName(currentUser)}
 
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -57,7 +57,7 @@ const DropMenu = () => {
           <SimpleList
             id='currentUserProfile'
             className='nav-link'
-            setData={setData}
+            setdata={setData}
             label='Profile utilisé'
             options={profilesOptions}
             onChange={onProfileChange}

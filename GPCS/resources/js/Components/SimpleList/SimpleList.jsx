@@ -8,7 +8,7 @@ import DropdownButton from '../Buttons/DropdownButton';
 const SimpleList = ({
   id,
   className,
-  setData,
+  setdata,
   label,
   options,
   onChange,
@@ -24,10 +24,10 @@ const SimpleList = ({
   const onClickChange = useCallback(
     (selected) => {
       setSelectedOption(selected.label);
-      setData(id, selected.value);
+      setdata(id, selected.value);
       onChange && onChange(selected);
     },
-    [setData]
+    [setdata]
   );
 
   return (

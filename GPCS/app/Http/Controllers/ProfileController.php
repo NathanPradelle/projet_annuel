@@ -24,8 +24,9 @@ class ProfileController extends Controller
     {
         $profiles = Profile::query()
             ->select('profiles.id', 'profiles.name')
+            ->whereIn('profiles.id', [1, 2, 3, 4])
             ->get();
-    
+
         return response()->json($profiles);
     }
 
@@ -40,7 +41,7 @@ class ProfileController extends Controller
             ->leftJoin('users', 'users.id', '=', 'user_profile.user')
             ->where('users.id', $userId)
             ->get();
-    
+
         return response()->json($profiles);
     }
 

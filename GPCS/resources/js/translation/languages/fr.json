@@ -2,37 +2,29 @@
   "appName": "GPCS",
   "appLongName": "Grand Paris Caretaker Service",
   "common": {
+    "address": "Adresse",
     "back": "Retour",
     "client": "Client",
     "connection": "Se Connecter",
     "dateStart": "Date de début",
     "dateEnd": "Date de fin",
     "delete": "Supprimer",
+    "description": "Description",
     "details": "Détails",
     "edit": "Éditer",
     "email": "Adresse mail",
+    "errorOccurred": "Une erreur est survenue",
+    "isActivated": "Est actif",
+    "isNotActivated": "Est inactif",
     "modify": "Modifier",
     "name": "Nom",
     "other": "Autre",
     "password": "Mot de passe",
-    "save": "Enregistrer"
-  },
-  "errorMessage": {
-    "401": "Veuillez vous authentifier pour accéder à cette page",
-    "403": "Vous n'avez les pas droits permettant l'accès à cette page",
-    "404": "La page que vous recherchez n'existe pas",
-    "409": "La ressource n'est pas a jour. Recharger la page avant de faire votre action",
-    "422": "Un ou plusieurs de vos données saisies ne sont pas acceptables (un email ou autre information qui a déjà été prise)",
-    "arrayMinLengthOne": "Au moins 1 élément doit être sélectionné",
-    "cannotBeEmpty": "Le champ est obligatoire",
-    "cityError": "Saisie incorrecte, entrez un code postal ou une ville",
-    "disconnected": "Vous avez été déconnecté, veuillez vous authentifier à nouveau",
-    "generic": "Une erreur est survenue",
-    "inputError": "saisie incorrecte,",
-    "invalidFilename": "Un nom de fichier ne peut pas contenir les caractères suivants:  \\ / : “ * ? < > |",
-    "noInformationSent": "aucune information n'a été envoyée",
-    "notFound": "Erreur : La valeur recherchée n'a pas été trouvée",
-    "takenEmail": "Un des emails saisis n'est plus disponible"
+    "postalCode": "Code postal",
+    "save": "Enregistrer",
+    "street": "Rue",
+    "success": "Action réussi",
+    "successCreation": "Élément créé"
   },
   "civility": {
     "F": "Mme.",
@@ -51,19 +43,9 @@
     "sign": "Signer la charte",
     "confirm": "Je soussigné(e) {{name}} m'engage:",
     "error": "La charte n'est pas signée",
-    "fifthPara": "C'est en ce sens que nous vous invitons à signer cette charte d'engagement de l'Alternant(e) et à respecter les consignes suivantes tout au long de la période de recherche d'entreprise qui s'ouvre et dont vos Référents CFA en seront les superviseurs.",
-    "fifthcommitment": "A choisir rapidement en cas de propositions multiples de missions entreprise",
-    "firtsPara": "Votre candidature sur cette session de formation a été pré-retenue pour intégrer le CFA et devenir ainsi un(e) futur(e) alternant(e), sous réserve que vous soyez recruté(e) par un employeur au plus tard 3 mois après le 1er jour de formation.",
-    "firtscommitment": "A participer aux différents ateliers #TrouveTonAlternance CFA afin de dynamiser ma recherche d'entreprise",
-    "fourthPara": "Aussi, nous comptons sur votre sens de l'engagement, votre implication, votre constance et votre loyauté professionnelle pour faire de la confiance donnée, un atout pour votre réussite future.",
-    "fourthcommitment": "A répondre à toutes propositions émanant des entreprises partenaires du CFA",
-    "secondPara": "Aussi, nous sommes heureux de vous féliciter pour le choix de l'alternance que vous avez effectué et vous pouvez compter sur l'accompagnement maximal des équipes CFA pour rendre cette expérience exaltante et extrêmement bénéfique pour votre future carrière professionnelle.",
-    "secondcommitment": "A mettre à jour mon profil et mon CV dans GPCS, sur le Career Center Jobteaser CFA ainsi que sur LinkedIn, selon les recommandations formulées par les équipes CFA",
-    "seventhcommitment": "A faire profiter les autres candidats CFA de mes démarches, une fois mon affectation décidée",
-    "sixthcommitment": "A respecter l'engagement pris avec une entreprise, une fois l'accord donné",
-    "success": "La charte a bien été signée",
-    "thirdPara": "Devenir Alternant(e) au CFA, c'est aussi faire le choix de la maturité et de la responsabilité et d'un comportement professionnel qui vous engage tant à l'égard de votre employeur futur que du CFA et des équipes pédagogiques.",
-    "thirdcommitment": "A agir avec dynamisme et proactivité pour rechercher une entreprise d'accueil et à informer le CFA de mes démarches"
+    "firtsPara": "Votre candidature sur ce service a été pré-retenue pour intégrer le GPCS et devenir ainsi un partenaire.",
+    "firtscommitment": "A participer aux différents ateliers GPCS afin de dynamiser ma recherche",
+    "success": "La charte a bien été signée"
   },
   "travelers": {
     "a" : "a"
@@ -105,7 +87,8 @@
     }
   },
   "login": {
-    "forgottenPassword": "Mot de Passe oublié"
+    "forgottenPassword": "Mot de Passe oublié",
+    "rememberMe": "Se souvenir de moi"
   },
   "menu": {
     "home": "Home",
@@ -116,22 +99,36 @@
       "signIn": "S'inscrire"
     },
     "admin": {
+      "apartments": "Appartements",
       "managers": "Liste des Gérants",
       "users": "Liste d'utilisateur",
       "tags": "Liste des Tags",
-      "services": "Services enregistré"
+      "services": "Services",
+      "demandes": "Demandes"
+
     }
   },
+  "user": {
+    "list": "Liste des clients",
+    "lastname": "Nom",
+    "firstname": "Prénom",
+    "profils": "Profiles de l'utilisateur"
+  },
   "apartment": {
+    "apartmentsToVerify": "Appartements à vérifier",
     "askYours": "Et si vous proposiez le vôtre ?",
     "nbPeople": "Nombre de personnes",
     "noApartmentAvailable": "Aucun appartement disponible...",
     "noPictureAvailable": "Aucune image disponible",
     "perNight": "par nuit",
-    "rent": "Réserver"
+    "priceMin": "Prix minimum",
+    "priceMax": "Prix maximum",
+    "rent": "Réserver",
+    "rentedBy": "Mise en réservation par"
   },
   "myApartment": {
     "title": "Mes appartements",
+    "reservationOnMyApartment": "Réservation sur mon appartement",
     "noApartments": "Vous n'avez aucun appartement..."
 
   },

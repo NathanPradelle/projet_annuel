@@ -6,7 +6,7 @@ import SimpleButton from '@/Components/Buttons/SimpleButton';
 import SimpleCheckbox from '@/Components/SimpleCheckbox';
 import SimpleDate from '@/Components/SimpleDate';
 import SimpleField from '@/Components/SimpleField';
-import ApartmentWindowFull from '@/Features/ApartmentWindowFull/ApartmentWindowFull';
+import ApartmentWindowFull from '@/Features/ApartmentWindowFull';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { dateDiffInDays } from '@/utils/date';
 
@@ -22,8 +22,10 @@ const ApartmentPage = ({
   // reservedDates,
   services,
 }) => {
-  console.log(services);
-  const { data, setData, post, errors } = useForm(apartment);
+  const { data, setData, post, errors } = useForm({
+    ...apartment,
+    dateStart: null,
+  });
   const totalPrice = useMemo(() => {
     if (data?.dateStart && data?.dateEnd && data?.guestCount > 0) {
       return data?.price * dateDiffInDays(data?.dateStart, data?.dateEnd);
@@ -59,7 +61,7 @@ const ApartmentPage = ({
                 <SimpleDate
                   id='dateStart'
                   value={data.dateStart}
-                  setData={setData}
+                  setdata={setData}
                   label={t('common.dateStart')}
                   minDate={demain}
                   errorMessage={errors.dateStart}
@@ -68,7 +70,7 @@ const ApartmentPage = ({
                 <SimpleDate
                   id='dateEnd'
                   value={data.dateEnd}
-                  setData={setData}
+                  setdata={setData}
                   label={t('common.dateEnd')}
                   minDate={demain}
                   errorMessage={errors.dateEnd}

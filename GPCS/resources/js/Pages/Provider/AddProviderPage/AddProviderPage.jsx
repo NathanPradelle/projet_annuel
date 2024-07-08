@@ -38,9 +38,9 @@ const AddProviderPage = ({ service, id }) => {
           <SimpleField
             id='PrixRegulier'
             type='number'
+            setdata={setData}
             value={data.PrixRegulier}
             label={t('service.regularPrice')}
-            onChange={(e) => setData('PrixRegulier', e.target.value)}
             errorMessage={errors.PrixRegulier}
             required
           />

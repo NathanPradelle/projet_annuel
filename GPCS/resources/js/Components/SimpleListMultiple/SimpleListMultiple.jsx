@@ -7,12 +7,12 @@ import DropdownButton from '../Buttons/DropdownButton';
 
 const SimpleListMultiple = ({
   id,
+  setdata,
+  onChange,
   value,
-  setData,
   label,
   placeholder,
   options,
-  onChange,
   disabled,
   styles,
 }) => {
@@ -37,7 +37,7 @@ const SimpleListMultiple = ({
       }
 
       setSelectedOptions(newSelectedOptions);
-      setData(
+      setdata(
         id,
         newSelectedOptions.map((e) => {
           return { id: e.value };
@@ -45,7 +45,7 @@ const SimpleListMultiple = ({
       );
       onChange && onChange(newSelectedOptions);
     },
-    [selectedOptions, setSelectedOptions, setData]
+    [selectedOptions, setSelectedOptions, setdata]
   );
 
   return (

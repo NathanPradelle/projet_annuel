@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Storage;
-
-class FilePaths {
+class FilePaths
+{
     /* Unauthenticated */
     const WELCOME = 'Unauthenticated/Welcome/Welcome';
     const APARTMENTS = 'Unauthenticated/ApartmentsPage/ApartmentsPage';
@@ -20,6 +20,8 @@ class FilePaths {
     const CONTACT = "Authenticated/Contact/Contact";
     const TICKET_CREATION = "Authenticated/TicketCreationPage/TicketCreationPage";
     const TICKET_INDEX = "Authenticated/TicketIndex/TicketIndex";
+    const CHAT = "Authenticated/Chat/Chat";
+    const TICKET_SHOW = "Authenticated/TicketShow/TicketShow";
 
     /* Admin */
     const ADMIN_CREATION = 'Admin/AdminCreationPage/AdminCreationPage';
@@ -29,6 +31,9 @@ class FilePaths {
     const TAGS = 'Admin/TagsPage/TagsPage';
     const USERS = 'Admin/UsersPage/UsersPage';
     const USER = 'Admin/UserPage/UserPage';
+    const APARTMENT_TO_VERIFY = 'Admin/ApartmentsToVerifyPage/ApartmentsToVerifyPage';
+    const APARTMENT_VERIFICATION = 'Admin/ApartmentVerificationPage/ApartmentVerificationPage';
+    const DEMANDES_MENU = 'Admin/DemandesMenu/DemandesMenu';
 
     const RESERVATION_MANAGEMENT = "Admin/ReservationManagementPage/ReservationManagementPage";
 

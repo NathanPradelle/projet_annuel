@@ -17,9 +17,10 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
-    */
+     */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
         'email',
         'password',
         'profile_in_use'
@@ -29,7 +30,7 @@ class User extends Authenticatable
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
-    */
+     */
     protected $hidden = [
         'password',
         'remember_token',
@@ -39,7 +40,7 @@ class User extends Authenticatable
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
-    */
+     */
     protected function casts(): array
     {
         return [
@@ -48,27 +49,37 @@ class User extends Authenticatable
         ];
     }
 
-    public function apartments(): HasMany {
+    public function apartments(): HasMany
+    {
         return $this->hasMany(Apartment::class);
     }
 
-    public function reservations(): HasMany {
+    public function reservations(): HasMany
+    {
         return $this->hasMany(Reservation::class);
     }
 
-    public function tags():HasMany {
+    public function tags(): HasMany
+    {
         return $this->hasMany(Tag::class);
     }
-    public function tickets():HasMany {
+    public function tickets(): HasMany
+    {
         return $this->hasMany(Ticket::class);
     }
 
-    public function userProfiles() {
+    public function userProfiles()
+    {
         return $this->hasMany(UserProfile::class, 'user', 'id');
     }
 
-    public function profileInUse() {
+    public function profileInUse()
+    {
         return $this->belongsTo(Profile::class, 'profile_in_use', 'id');
+    }
+
+    public function ticketNotes(): HasMany{
+        return $this->HasMany(Ticket_note::class);
     }
 
     /// <summary>
@@ -79,7 +90,8 @@ class User extends Authenticatable
     {
         $user = [
             'id' => $this?->id,
-            'name' => $this?->name,
+            'firstname' => $this?->firstname,
+            'lastname' => $this?->lastname,
             'email' => $this?->email,
             'profiles' => $this?->userProfiles->map(function ($userProfile) {
                 return ['id' => $userProfile->profile];
@@ -98,7 +110,8 @@ class User extends Authenticatable
     {
         $userData = [
             'id' => isset($vm?->id) ? $vm->id : null,
-            'name' => isset($vm?->name) ? $vm->name : null,
+            'firstname' => isset($vm?->firstname) ? $vm->firstname : null,
+            'lastname' => isset($vm?->lastname) ? $vm->lastname : null,
             'email' => isset($vm?->email) ? $vm->email : null,
             'email_verified_at' => isset($vm?->emailVerifiedAt) ? $vm->emailVerifiedAt : null,
             'password' => isset($vm?->password) ? $vm->password : null,

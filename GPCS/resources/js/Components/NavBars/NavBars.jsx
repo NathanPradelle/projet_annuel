@@ -11,6 +11,7 @@ import {
   isUserLessor,
   isUserManager,
   isUserProvider,
+  isUserTraveler,
 } from '@/utils/user';
 
 import DropMenu from './DropMenu/DropMenu';
@@ -29,21 +30,22 @@ const NavBars = () => {
       </NavLink>
       <div className='center'>
         {isUserLessor(currentUser) &&
-          MANAGER_PROFILES.includes(currentUser.profileInUse) && (
-            <NavLink href={route('apartment.index')}>
+          currentUser.profileInUse == PROFILE.LESSOR && (
+            <NavLink href={route('lessor.myApartments')}>
               {t('menu.myApartments')}
             </NavLink>
           )}
 
-        {currentUser && (
-          <NavLink href={route('reservation.index')}>
-            {t('menu.myReservations')}
-          </NavLink>
-        )}
+        {isUserTraveler(currentUser) &&
+          currentUser.profileInUse == PROFILE.TRAVELER && (
+            <NavLink href={route('reservation.index')}>
+              {t('menu.myReservations')}
+            </NavLink>
+          )}
 
         {isUserProvider(currentUser) &&
-          MANAGER_PROFILES.includes(currentUser.profileInUse) && (
-            <NavLink href={route('services')}>Service</NavLink>
+          currentUser.profileInUse == PROFILE.PROVIDER && (
+            <NavLink href={route('services')}>Mes Services</NavLink>
           )}
 
         {isUserManager(currentUser) &&
@@ -56,6 +58,7 @@ const NavBars = () => {
             <NavLink href={route('users.admin')}>
               {t('menu.admin.managers')}
             </NavLink>
+
           )}
       </div>
       {currentUser ? <DropMenu /> : <UnauthenticatedMenu />}

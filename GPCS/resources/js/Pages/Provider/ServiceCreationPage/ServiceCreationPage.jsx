@@ -48,18 +48,17 @@ const ServiceCreationPage = () => {
         <form method='POST' action='/service/create'>
           <SimpleList
             id='category'
-            setData={setData}
+            setdata={setData}
             label='Profile utilisé'
             options={options}
             styles={{ label: 'nav-input', option: 'nav-option' }}
           />
           <SimpleField
             id='label'
-            setData={setData}
+            setdata={setData}
             type='string'
             value={data.label}
             label={'Nom Service'}
-            onChange={(e) => setData('label', e.target.value)}
             errorMessage={errors.label}
             required
           />

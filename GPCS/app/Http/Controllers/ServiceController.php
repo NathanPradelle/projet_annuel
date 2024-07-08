@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\service;
+use App\Models\Service;
 use App\Models\provider_service;
 use App\Models\User;
-use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use FilePaths;
@@ -16,7 +15,7 @@ class ServiceController extends Controller
         return Inertia::render(FilePaths::SERVICE_CREATE);
     }
     public function create(Request $request){
-        $service = new service();
+        $service = new Service();
         //dd($request);
         $service->label=$request['label'];
         $service->category=$request['category'];
@@ -27,12 +26,12 @@ class ServiceController extends Controller
     /// Get all services.
     /// </summary>
     public function list(){
+        $services = Service::all();
         $user = User::find(auth()->id()); //to change
         $user->id; // to change
-        $provider_service = provider_service::where('user_id',$user->id)->get();
-        //dd($provider_service);
-        $services = Service::all();
-        //dd($service);
+        $provider_service = provider_service::where('user_id', $user->id)->get();
+        // dd($provider_service);
+        // dd($service);
         return Inertia::render(FilePaths::SERVICE, ['services' => $services]);
     }
 
