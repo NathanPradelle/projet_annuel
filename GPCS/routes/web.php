@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/ticket/{id}', [TicketController::class, 'update'])->name('ticket.update');
 
     Route::post('/userProfile', [UserController::class, 'profileToUse'])->name('user.profileToUse');
+    Route::get('/calendar', [UserController::class, 'calendar'])->name('user.calendar');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

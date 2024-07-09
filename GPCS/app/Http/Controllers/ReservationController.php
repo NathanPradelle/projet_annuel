@@ -46,7 +46,7 @@ class ReservationController extends Controller
 
         // Passer les réservations à la vue
         return Inertia::render(FilePaths::MY_RESERVATIONS, [
-            'reservations' => $formattedReservations, 
+            'reservations' => $formattedReservations,
             'pagination' => $pagination
         ]);
     }
@@ -65,11 +65,11 @@ class ReservationController extends Controller
         $prixAppartement = $selectedAppartement->prix;
 
         $intervalle = Reservation::where("apartment_id", $apartment_id)
-            ->select("start_time","end_time")
+            ->select("start_time", "end_time")
             ->get();
 
         $fermeture = ClosedPeriod::where("apartment_id", $apartment_id)
-            ->select("start_time","end_time")
+            ->select("start_time", "end_time")
             ->get();
 
         return Inertia::render('Reservation.create', [
@@ -82,7 +82,8 @@ class ReservationController extends Controller
         ]);
     }
 
-    public function test(Request $request){
+    public function test(Request $request)
+    {
         dd($request);
     }
 
@@ -100,7 +101,7 @@ class ReservationController extends Controller
         $servicefilter = collect($request->all())->filter(function ($value, $key) {
             return Str::startsWith($key, 'service-');
         })->all();
-        
+
         $servicesID = $servicefilter;
         $id = [];
 
@@ -109,7 +110,7 @@ class ReservationController extends Controller
             $serviceIds[] = end($parts);
         }
 
-        foreach($serviceIds as $service){
+        foreach ($serviceIds as $service) {
             $service = Service::find($service)->first();
             $services[] = $service;
         }
@@ -125,9 +126,9 @@ class ReservationController extends Controller
             'guestCount' => ['required', 'numeric'],
             'price' => ['required', 'numeric'],
         ]);
-    
+
         $user = $request->user();
-    
+
         $reservation = new Reservation([
             'user_id' => $user->id,
             'apartment_id' => $validatedData['id'],
@@ -155,7 +156,7 @@ class ReservationController extends Controller
 
         $reservation->save();
 
-        foreach($services as $service){
+        foreach ($services as $service) {
             //dd($service,$service->id);
             $relation = new reservation_service([
                 'reservation_id' => $reservation->id,
@@ -164,11 +165,12 @@ class ReservationController extends Controller
             $relation->save();
         }
 
-        return redirect()->route('reservation.index')->with('success', "Réservation bien prise en compte");       
+        return redirect()->route('reservation.index')->with('success', "Réservation bien prise en compte");
     }
 
 
-    public function manage(){
+    public function manage()
+    {
         $reservations = Reservation::with(['user', 'apartment', 'services', 'providers'])->get();
         //dd($reservations);
         return Inertia::render(FilePaths::RESERVATION_MANAGEMENT, ['reservations' => $reservations]);

@@ -7,6 +7,7 @@ const InputText = (
     type = 'text',
     setdata,
     onChange,
+    value = '',
     className,
     isFocused,
     disabled,
@@ -35,6 +36,7 @@ const InputText = (
       id={id}
       name={id}
       type={type}
+      value={value}
       className={clsx(
         'border-1-grey focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm',
         disabled ? 'text-grey bg-transparent' : 'bg-white',

@@ -92,7 +92,9 @@ class Apartment extends Model
             })->toArray(),
         ];
 
-        return $apartment;
+        return array_filter($apartment, function ($value) {
+            return !is_null($value);
+        });
     }
 
     /// <summary>

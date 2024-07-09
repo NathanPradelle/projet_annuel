@@ -51,6 +51,7 @@ const DropMenu = () => {
       content={
         <>
           <NavLink href={route('profile.edit')}>Profile</NavLink>
+          <NavLink href={route('user.calendar')}>Calendrier</NavLink>
           <NavLink href={route('logout')} method='post'>
             Log Out
           </NavLink>

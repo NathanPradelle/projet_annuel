@@ -9,6 +9,7 @@ class FilePaths
     const APARTMENT = 'Unauthenticated/ApartmentPage/ApartmentPage';
     const LOGIN = "Unauthenticated/Login/Login";
     const REGISTER = "Unauthenticated/Register/Register";
+    const CALENDAR = "Unauthenticated/CalendarPage/CalendarPage";
 
     /* Authenticated */
     const CONFIRM_PASSWORD = "Authenticated/ConfirmPassword/ConfirmPassword";

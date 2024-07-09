@@ -51,7 +51,9 @@
     "a" : "a"
   },
   "date": {
+    "year": "Année",
     "month": {
+      "label": "Mois",
       "1": "Janv.",
       "2": "Fév.",
       "3": "Mars",
@@ -64,6 +66,15 @@
       "10": "Oct.",
       "11": "Nov.",
       "12": "Déc."
+    },
+    "day": {
+      "0": "Lundi",
+      "1": "Mardi",
+      "2": "Mercredi",
+      "3": "Jeudi",
+      "4": "Vendredi",
+      "5": "Samedi",
+      "6": "Dimanche"
     }
   },
   "emailVerified": {

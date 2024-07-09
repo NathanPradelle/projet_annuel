@@ -15,7 +15,6 @@ demain.setDate(new Date().getDate() + 1);
 
 const ApartmentPage = ({
   apartment,
-  auth,
   storagePath,
   // fermetures,
   // intervalles,
@@ -24,7 +23,6 @@ const ApartmentPage = ({
 }) => {
   const { data, setData, post, errors } = useForm({
     ...apartment,
-    dateStart: null,
   });
   const totalPrice = useMemo(() => {
     if (data?.dateStart && data?.dateEnd && data?.guestCount > 0) {
@@ -43,7 +41,7 @@ const ApartmentPage = ({
   );
 
   return (
-    <AuthenticatedLayout user={auth.user}>
+    <AuthenticatedLayout>
       <div className='flex justify-center'>
         <article>
           <h1 className='text-3xl font-extrabold'>{apartment.name}</h1>
@@ -60,8 +58,8 @@ const ApartmentPage = ({
 
                 <SimpleDate
                   id='dateStart'
-                  value={data.dateStart}
                   setdata={setData}
+                  value={data.dateStart}
                   label={t('common.dateStart')}
                   minDate={demain}
                   errorMessage={errors.dateStart}
@@ -69,8 +67,8 @@ const ApartmentPage = ({
 
                 <SimpleDate
                   id='dateEnd'
-                  value={data.dateEnd}
                   setdata={setData}
+                  value={data.dateEnd}
                   label={t('common.dateEnd')}
                   minDate={demain}
                   errorMessage={errors.dateEnd}
@@ -79,10 +77,10 @@ const ApartmentPage = ({
                 <SimpleField
                   id='guestCount'
                   type='number'
+                  setdata={setData}
                   value={data.guestCount}
                   max={apartment.guestCount}
                   label={t('apartment.nbPeople')}
-                  onChange={(e) => setData('guestCount', e.target.value)}
                   errorMessage={errors.guestCount}
                   required
                 />

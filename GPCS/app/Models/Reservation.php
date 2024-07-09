@@ -28,11 +28,13 @@ class Reservation extends Model
         'created' => EventsReservation::class,
     ];
 
-    public function user() : BelongsTo{
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function apartment() : BelongsTo{
+    public function apartment(): BelongsTo
+    {
         return $this->belongsTo(Apartment::class, 'apartment_id');
     }
 
@@ -64,10 +66,12 @@ class Reservation extends Model
             'updatedAt' =>  $this?->updated_at,
 
             'user' => $this?->user,
-            'apartment' => $this?->apartment,
+            'apartment' => $this?->apartment->modelSetter(),
         ];
 
-        return $reservation;
+        return array_filter($reservation, function ($value) {
+            return !is_null($value);
+        });
     }
 
     /// <summary>
@@ -89,14 +93,14 @@ class Reservation extends Model
         ];
 
         $reservation = new Apartment($reservationData);
-        
+
         if (isset($vm?->user)) {
             $reservation->user = $vm->user;
         }
         if (isset($vm?->apartment)) {
             $reservation->apartment = $vm->apartment;
         }
-        
+
         return $reservation;
     }
 }
