@@ -83,7 +83,8 @@ class User extends Authenticatable
         return $this->belongsTo(Profile::class, 'profile_in_use', 'id');
     }
 
-    public function ticketNotes(): HasMany{
+    public function ticketNotes(): HasMany
+    {
         return $this->HasMany(Ticket_note::class);
     }
 
@@ -93,6 +94,7 @@ class User extends Authenticatable
     /// <return> a formatted user </return>
     public function modelSetter()
     {
+
         $user = [
             'id' => $this?->id,
             'firstname' => $this?->firstname,
@@ -102,9 +104,29 @@ class User extends Authenticatable
                 return ['id' => $userProfile->profile];
             })->toArray(),
             'profileInUse' => $this?->profile_in_use,
+            'reservations' => $this?->reservations->map(function ($reservation) {
+                $reservation = [
+                    'id' =>  $reservation?->id,
+                    "dateStart" => $reservation?->start_time,
+                    "dateEnd" => $reservation?->end_time,
+                    'guestCount' =>  $reservation?->guestCount,
+                    'status' =>  $reservation?->status,
+                    'price' =>  $reservation?->price,
+                    'comment' =>  $reservation?->comment,
+                    'createdAt' =>  $reservation?->created_at,
+                    'updatedAt' =>  $reservation?->updated_at,
+
+                    'apartment' => $reservation?->apartment->modelSetter(),
+                ];
+                return array_filter($reservation, function ($value) {
+                    return !is_null($value);
+                });
+            })->toArray(),
         ];
 
-        return $user;
+        return array_filter($user, function ($value) {
+            return !is_null($value);
+        });
     }
 
     /// <summary>

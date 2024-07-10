@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('profile_in_use')->references('id')->on('profiles')->default(1)->nullable(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
+            // $table->string('translation')->default('fr');
             $table->rememberToken();
         });
 

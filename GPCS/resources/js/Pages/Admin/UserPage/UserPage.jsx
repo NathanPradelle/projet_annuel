@@ -6,10 +6,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import SimpleButton from '@/Components/Buttons/SimpleButton';
 import SimpleField from '@/Components/SimpleField';
 import SimpleListMultiple from '@/Components/SimpleListMultiple';
+import Table from '@/Components/Table';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { getProfileLabel } from '@/utils/user';
+import useColumns from '@/Pages/Traveler/MyReservationsPage/useColumns';
+import { getProfileLabel, getUserName } from '@/utils/user';
 
 const UserPage = ({ user }) => {
+  const columns = useColumns();
+
   const { data, setData, reset, post, errors } = useForm(user);
   const [disabled, setDisabled] = useState(true);
   const [profiles, setProfiles] = useState([]);
@@ -52,7 +56,7 @@ const UserPage = ({ user }) => {
       headTitle='User'
       header={
         <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
-          {t('common.client')}: {user?.name}
+          {t('common.client')}: {getUserName(user)}
         </h2>
       }
     >
@@ -100,11 +104,19 @@ const UserPage = ({ user }) => {
           id='profiles'
           setdata={setData}
           value={data.profiles}
-          label="Profils de l'utilisateur"
+          label={t('user.profils')}
           options={profilesOptions}
           disabled={disabled}
         />
       </form>
+      <div className='bg-white shadow-sm sm:rounded-lg p-6 text-gray-900'>
+        <h2>{t('reservation.label')}</h2>
+        <Table
+          columns={columns}
+          data={user?.reservations}
+          placeholder={t('reservation.noReservationAdmin')}
+        />
+      </div>
     </AuthenticatedLayout>
   );
 };

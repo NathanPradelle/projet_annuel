@@ -11,6 +11,7 @@ use FilePaths;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -47,7 +48,7 @@ class ReservationController extends Controller
 
         // Passer les réservations à la vue
         return Inertia::render(FilePaths::MY_RESERVATIONS, [
-            'reservations' => $formattedReservations, 
+            'reservations' => $formattedReservations,
             'pagination' => $pagination
         ]);
     }
@@ -69,11 +70,11 @@ class ReservationController extends Controller
         $prixAppartement = $selectedAppartement->prix;
 
         $intervalle = Reservation::where("apartment_id", $apartment_id)
-            ->select("start_time","end_time")
+            ->select("start_time", "end_time")
             ->get();
 
         $fermeture = ClosedPeriod::where("apartment_id", $apartment_id)
-            ->select("start_time","end_time")
+            ->select("start_time", "end_time")
             ->get();
 
         return Inertia::render('Reservation.create', [
@@ -86,7 +87,8 @@ class ReservationController extends Controller
         ]);
     }
 
-    public function test(Request $request){
+    public function test(Request $request)
+    {
         dd($request);
     }
 
@@ -97,48 +99,32 @@ class ReservationController extends Controller
     /// <return> reservation page with a reservationVm </return>
     public function store(Request $request)
     {
-        //dd($request);
+        Log::info('Reservation Data from session:');
+        // Récupérer les informations de réservation de la session
+        $reservationData = $request->session()->get('reservation');
+        $serviceIds = $request->session()->get('serviceIds', []);
 
-        $serviceIds = [];
-
-        $servicefilter = collect($request->all())->filter(function ($value, $key) {
-            return Str::startsWith($key, 'service-');
-        })->all();
-        
-        $servicesID = $servicefilter;
-        $id = [];
-
-        foreach ($servicesID as $key => $value) {
-            $parts = explode('-', $key);
-            $serviceIds[] = end($parts);
+        if (!$reservationData) {
+            return redirect()->route('reservation.create')->with('error', 'Aucune réservation trouvée.');
         }
 
-        foreach($serviceIds as $service){
-            $service = Service::find($service)->first();
-            $services[] = $service;
+        $services = [];
+        foreach ($serviceIds as $serviceId) {
+            $service = Service::find($serviceId);
+            if ($service) {
+                $services[] = $service;
+            }
         }
 
-        //dd($services);
-
-        //dd($data);
-
-        $validatedData = $request->validate([
-            'id' => ['required', 'exists:apartments,id'],
-            'dateStart' => ['required', 'date', 'after_or_equal:today'],
-            'dateEnd' => ['required', 'date', 'after:dateStart'],
-            'guestCount' => ['required', 'numeric'],
-            'price' => ['required', 'numeric'],
-        ]);
-    
         $user = $request->user();
-    
+
         $reservation = new Reservation([
             'user_id' => $user->id,
-            'apartment_id' => $validatedData['id'],
-            'start_time' => $validatedData['dateStart'],
-            'end_time' => $validatedData['dateEnd'],
-            'guestCount' => $validatedData['guestCount'],
-            'price' => $validatedData['price'],
+            'apartment_id' => $reservationData['id'],
+            'start_time' => $reservationData['dateStart'],
+            'end_time' => $reservationData['dateEnd'],
+            'guestCount' => $reservationData['guestCount'],
+            'price' => $reservationData['price'],
         ]);
 
         $conflictingReservation = Reservation::where('apartment_id', $reservation['apartment_id'])
@@ -153,14 +139,12 @@ class ReservationController extends Controller
             ->exists();
 
         if ($conflictingReservation) {
-            dd(1);
             return redirect()->route('appart.show', $reservation['apartment_id'])->with('error', "Les dates choisies ne sont pas disponibles. Veuillez choisir d'autres dates.");
         }
 
         $reservation->save();
 
-        foreach($services as $service){
-            //dd($service,$service->id);
+        foreach ($services as $service) {
             $relation = new reservation_service([
                 'reservation_id' => $reservation->id,
                 'service_id' => $service->id,
@@ -168,13 +152,50 @@ class ReservationController extends Controller
             $relation->save();
         }
 
-        return redirect()->route('reservation.index')->with('success', "Réservation bien prise en compte");       
+        // Supprimer les informations de réservation de la session
+        $request->session()->forget(['reservation', 'serviceIds']);
+
+        return redirect()->route('reservation.index')->with('success', "Réservation bien prise en compte");
     }
 
 
-    public function manage(){
+
+    public function saveInformations(Request $request)
+    {
+        // Valider les données de la réservation
+        $validatedData = $request->validate([
+            'id' => ['required', 'exists:apartments,id'],
+            'dateStart' => ['required', 'date', 'after_or_equal:today'],
+            'dateEnd' => ['required', 'date', 'after:dateStart'],
+            'guestCount' => ['required', 'numeric'],
+            'price' => ['required', 'numeric'],
+        ]);
+
+        // Stocker les informations de la réservation dans la session
+        $request->session()->put('reservation', $validatedData);
+
+        $serviceIds = [];
+        $servicefilter = collect($request->all())->filter(function ($value, $key) {
+            return Str::startsWith($key, 'service-');
+        })->all();
+
+        foreach ($servicefilter as $key => $value) {
+            $parts = explode('-', $key);
+            $serviceIds[] = end($parts);
+        }
+
+        $request->session()->put('serviceIds', $serviceIds);
+
+        // Rediriger vers la page de paiement
+        return redirect()->route('payment.show');
+    }
+
+
+
+    public function manage()
+    {
         $reservations = Reservation::with(['user', 'apartment', 'services', 'providers'])->get();
-        //dd($reservations);
+
         return Inertia::render(FilePaths::RESERVATION_MANAGEMENT, ['reservations' => $reservations]);
     }
 

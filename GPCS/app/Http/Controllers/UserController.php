@@ -150,6 +150,29 @@ class UserController extends Controller
         ]);
     }
 
+    public function calendar()
+    {
+        $user = User::query()
+            ->select(['id', 'firstname', 'lastname'])
+            ->latest()
+            ->with(['reservations' => function ($query) {
+                $query->select(['id', 'apartment_id', 'start_time', 'end_time', 'user_id'])
+                    ->with(['apartment:id,name,postal_code,street,price']);
+            }])
+            // ->with(['service' => function ($query) {
+            //     $query->select(['id', 'apartment_id', 'start_time', 'end_time']);
+            // }])
+            ->find(auth()->id());
+
+        if (is_null($user)) {
+            return null; // response()->json(['error' => 'User not found'], 404);
+        }
+
+        return Inertia::render(FilePaths::CALENDAR, [
+            'user' => $user->modelSetter(),
+        ]);
+    }
+
     public function RGPDCustomer(User $user)
     {
         $user->update([

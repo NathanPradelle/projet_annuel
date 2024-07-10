@@ -9,8 +9,6 @@ import useColumns from './useColumns';
 const MyReservationsPage = ({ reservations, pagination }) => {
   const columns = useColumns();
 
-  console.log(reservations, pagination);
-
   return (
     <AuthenticatedLayout
       headTitle='CustomerIndex'

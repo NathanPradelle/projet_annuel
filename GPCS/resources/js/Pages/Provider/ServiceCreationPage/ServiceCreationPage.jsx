@@ -13,7 +13,6 @@ const options = [
   {
     value: 'jour',
     label: 'jour',
-    selected: true,
   },
   {
     value: 'distance',
@@ -25,7 +24,10 @@ const options = [
   },
 ];
 const ServiceCreationPage = () => {
-  const { data, setData, post, errors } = useForm({ label: '', category: 1 });
+  const { data, setData, post, errors } = useForm({
+    label: '',
+    category: 'jour',
+  });
 
   const onSubmit = useCallback(
     (e) => {
@@ -49,7 +51,8 @@ const ServiceCreationPage = () => {
           <SimpleList
             id='category'
             setdata={setData}
-            label='Profile utilisé'
+            value={data?.category}
+            label='Type de service'
             options={options}
             styles={{ label: 'nav-input', option: 'nav-option' }}
           />

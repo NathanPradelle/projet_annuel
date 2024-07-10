@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Reservation;
+use FilePaths;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
 use Inertia\Inertia;
-use Inertia\Response;
-
 
 class PaymentController extends Controller
 {
-    public function payment()
+    public function createPaymentIntent(Request $request)
     {
-        $price = 100;
-        return Inertia::render('Payment/Payment', [
-            'price' => $price,
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $paymentIntent = PaymentIntent::create([
+            'amount' => 1000, // montant en cents (10.00 USD)
+            'currency' => 'usd',
         ]);
+
+        return redirect()->route("reservation.store");
+    }
+
+    public function show()
+    {
+
+        return Inertia::render(FilePaths::PAYMENT);
     }
 }
+

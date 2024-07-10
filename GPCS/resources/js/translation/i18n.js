@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
+import translationEN from './languages/en.json';
 import translationFR from './languages/fr.json';
 
 export const LanguageENUM = {
@@ -14,6 +15,9 @@ const resources = {
   fr: {
     translation: translationFR,
   },
+  en: {
+    translation: translationEN,
+  },
 };
 
 i18n
@@ -21,7 +25,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: LanguageENUM.FR,
+    lng: localStorage.i18nextLng || LanguageENUM.FR,
     fallbackLng: LanguageENUM.FR,
 
     keySeparator: '.', // to support nested translations

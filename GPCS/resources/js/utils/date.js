@@ -2,7 +2,7 @@ export const dateDiffInMillis = (dateA, dateB) => {
   const dateAInMillis = dateA.getTime();
   const dateBInMillis = dateB.getTime();
 
-  return dateBInMillis - dateAInMillis;
+  return Math.abs(dateBInMillis - dateAInMillis);
 };
 
 export const dateDiffInDays = (dateA, dateB) => {

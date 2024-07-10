@@ -1,14 +1,17 @@
 import { Inertia } from '@inertiajs/inertia';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { t } from 'i18next';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import InputText from '@/Components/InputText';
 import SimpleListMultiple from '@/Components/SimpleListMultiple';
 import { ALL_PROFILES } from '@/Constants/profiles';
+import { toastActionSuccess, toastCommonError } from '@/utils/toast';
 import { getProfileLabel, getUserName } from '@/utils/user';
 
 const useColumns = () => {
+  const apiResult = usePage().props?.flash?.message;
+
   const { data, setData, patch } = useForm();
   const [editingUser, setUserToEdit] = useState(null);
 
@@ -29,21 +32,26 @@ const useColumns = () => {
   const handleDelete = (userId) => {
     const deleteUserUrl = route('users.destroy', { user: userId });
     Inertia.delete(deleteUserUrl, {
-      onSuccess: () => {
-        console.log('User deleted successfully');
-      },
+      // onSuccess: () => {
+      //   c.log('User deleted successfully');
+      // },
       onError: (error) => {
+        toastCommonError(error);
         console.error('Failed to delete user:', error);
       },
     });
   };
 
+  useEffect(() => {
+    apiResult && toastActionSuccess();
+  }, [apiResult]);
+
   const profilesOptions = useMemo(
     () =>
-      ALL_PROFILES?.map((profile) => {
+      ALL_PROFILES?.map((profileId) => {
         return {
-          value: profile,
-          label: getProfileLabel(profile),
+          value: profileId,
+          label: getProfileLabel(profileId),
         };
       }),
     []

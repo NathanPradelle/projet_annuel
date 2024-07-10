@@ -1,0 +1,23 @@
+.calendar{
+  .wrapper {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(24, 1fr);
+    gap: 10px;
+  }
+  
+  .hour-cell {
+    grid-column: 1;
+  }
+  
+  .day-cell {
+    grid-row: span 0; /* Span all 7 days */
+  }
+  
+  .reservation {
+    position: relative;
+    background-color: lightblue;
+    border: 1px solid blue;
+    border-radius: 5px;
+  }
+}

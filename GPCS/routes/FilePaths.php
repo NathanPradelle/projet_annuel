@@ -9,6 +9,7 @@ class FilePaths
     const APARTMENT = 'Unauthenticated/ApartmentPage/ApartmentPage';
     const LOGIN = "Unauthenticated/Login/Login";
     const REGISTER = "Unauthenticated/Register/Register";
+    const CALENDAR = "Unauthenticated/CalendarPage/CalendarPage";
 
     /* Authenticated */
     const CONFIRM_PASSWORD = "Authenticated/ConfirmPassword/ConfirmPassword";
@@ -45,6 +46,8 @@ class FilePaths
     /* Traveler */
     const MY_RESERVATION = 'Traveler/MyReservationPage/MyReservationPage';
     const MY_RESERVATIONS = 'Traveler/MyReservationsPage/MyReservationsPage';
+
+    const PAYMENT = 'Traveler/PaymentPage/PaymentPage';
 
     /* Images */
     const IMAGE_URL = "http://127.0.0.1:8000/Storage/";
