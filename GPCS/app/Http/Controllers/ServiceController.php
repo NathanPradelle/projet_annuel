@@ -48,6 +48,12 @@ class ServiceController extends Controller
         return Inertia::render(FilePaths::SERVICE_ADD_PROVIDER, ['id' => $id]);
     }
 
+    public function apply(){
+        $user = User::with('services')->find(auth()->id());
+        $services = Service::all();
+        return Inertia::render(FilePaths::SERVICE_APPLY, ['user'=>$user,'services' => $services,]);
+    }
+
     public function addProviderPage(Request $request){
         //dd($request);
         $service_provider = new provider_service();

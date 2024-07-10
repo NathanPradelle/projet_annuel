@@ -36,7 +36,7 @@ class FactureController extends Controller
         // Enregistre le PDF localement
         Storage::put($filePath, $pdf->output());
 
-        //return $pdf->stream('invoice.pdf');
+        return $pdf->stream('invoice.pdf');
         //return view('factureclient');
     }
 }

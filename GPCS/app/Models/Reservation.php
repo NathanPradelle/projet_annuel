@@ -65,6 +65,8 @@ class Reservation extends Model
 
             'user' => $this?->user,
             'apartment' => $this?->apartment,
+
+            'services' => $this->services()->get(),
         ];
 
         return $reservation;

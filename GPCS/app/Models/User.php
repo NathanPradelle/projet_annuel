@@ -68,6 +68,11 @@ class User extends Authenticatable
         return $this->hasMany(Ticket::class);
     }
 
+    public function services(): HasMany
+    {
+        return $this->hasMany(provider_service::class);
+    }
+
     public function userProfiles()
     {
         return $this->hasMany(UserProfile::class, 'user', 'id');

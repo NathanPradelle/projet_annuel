@@ -3,6 +3,8 @@ import { InertiaLink } from '@inertiajs/inertia-react';
 import { format } from 'date-fns';
 import { useMemo } from 'react';
 
+import AddAvisForm from './AddAvisForm';
+
 const useColumns = () => {
   const handleCancelReservation = (e, reservationId) => {
     e.preventDefault();
@@ -83,6 +85,9 @@ const useColumns = () => {
             facture
           </InertiaLink>
         ),
+      },
+      {
+        renderCell: (row) => <AddAvisForm id={row.id}></AddAvisForm>,
       },
     ],
     []

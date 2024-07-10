@@ -54,6 +54,6 @@ class FilePaths
     const SERVICE_FEE = "Provider/ServiceFeePage/ServiceFeePage";
     const SERVICE = "Provider/ServicesPage/ServicesPage";
     const SERVICE_ADD_PROVIDER = "Provider/AddProviderPage/AddProviderPage";
-
+    const SERVICE_APPLY = "Provider/ApplyPage/ApplyPage";
 
 }

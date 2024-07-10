@@ -107,6 +107,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/service/create/page', [ServiceController::class, 'create_page'])->name('service.create');
     Route::get('/service/listtarrification', [ServiceController::class, 'liste_provider_service'])->name('service.provider.list');
     Route::get('/service/provider', [ServiceController::class, 'addProviderPage']);
+    Route::get('/service/apply', [ServiceController::class, 'apply']);
+  
     Route::post('/service/provider/price', [PriceController::class, 'priceUpdate'])->name('service.provider.price');
 
     Route::resource('apartment', ApartmentController::class); // TODO remove this, divide routes in middlewares
@@ -119,6 +121,7 @@ Route::middleware('auth')->group(function () {
     Route::get('reservation/create/{apartment_id}', [ReservationController::class, 'create'])->name('reservation.create');
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservation.index');
     Route::get('/reservations/management', [ReservationController::class, 'manage'])->name('reservation.index');
+    Route::get('/avis/{id}', [ReservationController::class, 'editavis'])->name('avis.edit');
     //Route::get('/reservation', [ReservationController::class, 'test'])->name('reservation.test'); //test
 
     Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');

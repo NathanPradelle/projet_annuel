@@ -22,6 +22,7 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::where('user_id', Auth::id())
+            //->with['services']
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
@@ -51,6 +52,9 @@ class ReservationController extends Controller
         ]);
     }
 
+    public function avis(){
+        dd(0);
+    }
 
     /**
      * Show the form for creating a new resource.

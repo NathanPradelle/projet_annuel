@@ -52,7 +52,7 @@ const BanUserForm = ({ userId, className = '' }) => {
             />
           </div>
           <div className='mt-6'>
-            <SimpleField
+            <SimpleDate
               id='date_end'
               setdata={setData}
               value={data.date_end}
