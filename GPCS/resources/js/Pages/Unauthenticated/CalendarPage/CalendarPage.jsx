@@ -8,6 +8,8 @@ import SimpleButton from '@/Components/Buttons/SimpleButton';
 import SimpleField from '@/Components/SimpleField';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
+import EventHeight from './EventHeight';
+
 const CalendarPage = ({ user }) => {
   const today = new Date();
 
@@ -25,7 +27,6 @@ const CalendarPage = ({ user }) => {
     const day = data.day;
 
     const firstDayOfWeek = new Date(year, month, day);
-    firstDayOfWeek.setDate(firstDayOfWeek.getDate() - firstDayOfWeek.getDay());
 
     const days = [];
     for (let i = 0; i < 7; i++) {
@@ -36,7 +37,7 @@ const CalendarPage = ({ user }) => {
     }
 
     return days;
-  }, [data, t]);
+  }, [data]);
 
   const previousWeek = useCallback(() => {
     const newDate = new Date(data.year, data.month - 1, data.day);
@@ -60,78 +61,55 @@ const CalendarPage = ({ user }) => {
     });
   }, [data, setData]);
 
-  const displayEvent = (start, end) => {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    const dayOfWeek = startDate.getDay();
-    const startHour = startDate.getHours();
-    const endHour = endDate.getHours();
-
-    return {
-      gridColumnStart: dayOfWeek + 2,
-      gridRowStart: startHour + 2,
-      gridRowEnd: endHour + 2,
-    };
-  };
-
   return (
     <AuthenticatedLayout
       headTitle='Calendar'
       className='calendar'
       header={
         <h2 className='font-semibold text-xl text-gray-800 leading-tight'>
-          Calendrier
+          {t('date.calendar')}
         </h2>
       }
     >
-      <div className='flex gap-2'>
-        <div>
-          Legend
-          <div className='flex gap-1'>
-            <p>a</p>
-            <p>b</p>
-          </div>
-        </div>
+      <div className='flex-center-between'>
         <SimpleButton onClick={previousWeek}>{'<'}</SimpleButton>
-        <SimpleField
-          id='year'
-          type='number'
-          setdata={setData}
-          value={data.year}
-          label={t('date.year')}
-          min={0}
-          max={9999}
-        />
-        <SimpleField
-          id='month'
-          type='number'
-          setdata={setData}
-          value={data.month}
-          label={t('date.month.label')}
-          min={1}
-          max={12}
-        />
+        <div className='flex-center gap-2'>
+          <SimpleField
+            id='year'
+            type='number'
+            setdata={setData}
+            value={data.year}
+            label={t('date.year')}
+            min={0}
+            max={9999}
+          />
+          <SimpleField
+            id='month'
+            type='number'
+            setdata={setData}
+            value={data.month}
+            label={t('date.month.label')}
+            min={1}
+            max={12}
+          />
+        </div>
         <SimpleButton onClick={nextWeek}>{'>'}</SimpleButton>
       </div>
       <div className='p-4 sm:p-8 bg-white shadow sm:rounded-lg'>
         <div className='wrapper'>
           <div />
           {cellDays.map((day, index) => (
-            <div key={index}>{day}</div>
+            <div key={index} className='day-cell'>
+              {day}
+            </div>
           ))}
           {cellHours.map((hour, index) => (
             <div key={index} className='hour-cell'>
               {hour}
             </div>
           ))}
-          {user?.reservations?.map((event, index) => (
-            <div
-              key={index}
-              className='event'
-              style={displayEvent(event.dateStart, event.dateEnd)}
-            >
-              {event?.title}
-            </div>
+          {user?.reservations?.map((reservation, index) => (
+            <EventHeight data={data} reservation={reservation} key={index} />
           ))}
         </div>
       </div>

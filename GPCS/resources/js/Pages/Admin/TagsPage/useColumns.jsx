@@ -1,21 +1,30 @@
 import { Inertia } from '@inertiajs/inertia';
+import { usePage } from '@inertiajs/react';
 import { t } from 'i18next';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import SimpleButton from '@/Components/Buttons/SimpleButton';
+import { toastActionSuccess, toastCommonError } from '@/utils/toast';
 
 const useColumns = () => {
+  const apiResult = usePage().props?.flash?.message;
+
   const handleDelete = (tagId) => {
     const deleteTagUrl = route('tag.destroy', { tag: tagId });
     Inertia.delete(deleteTagUrl, {
-      onSuccess: () => {
-        console.log('Tag deleted successfully');
-      },
+      // onSuccess: () => {
+      //   c.log('Tag deleted successfully');
+      // },
       onError: (error) => {
+        toastCommonError(error);
         console.error('Failed to delete Tag:', error);
       },
     });
   };
+
+  useEffect(() => {
+    apiResult && toastActionSuccess();
+  }, [apiResult]);
 
   const columns = useMemo(
     () => [

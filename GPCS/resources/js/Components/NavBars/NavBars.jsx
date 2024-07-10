@@ -58,7 +58,6 @@ const NavBars = () => {
             <NavLink href={route('users.admin')}>
               {t('menu.admin.managers')}
             </NavLink>
-
           )}
       </div>
       {currentUser ? <DropMenu /> : <UnauthenticatedMenu />}

@@ -1,24 +1,24 @@
 import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/react';
 import axios from 'axios';
+import { t } from 'i18next';
 import React, { useCallback } from 'react';
 
 import DropdownButton from '@/Components/Buttons/DropdownButton';
 import SimpleList from '@/Components/SimpleList';
+import LanguageSelector from '@/translation/LanguageSelector';
 import { getCurrentUser, getProfileLabel, getUserName } from '@/utils/user';
 
 import NavLink from '../NavLink';
 
 const DropMenu = () => {
   const currentUser = getCurrentUser();
-
   const { setData } = useForm();
 
   const profilesOptions = currentUser?.profiles?.map((profile) => {
     return {
       value: profile?.id,
       label: getProfileLabel(profile?.id),
-      selected: profile?.id == currentUser?.profileInUse,
     };
   });
 
@@ -51,7 +51,7 @@ const DropMenu = () => {
       content={
         <>
           <NavLink href={route('profile.edit')}>Profile</NavLink>
-          <NavLink href={route('user.calendar')}>Calendrier</NavLink>
+          <NavLink href={route('user.calendar')}>{t('date.calendar')}</NavLink>
           <NavLink href={route('logout')} method='post'>
             Log Out
           </NavLink>
@@ -59,11 +59,13 @@ const DropMenu = () => {
             id='currentUserProfile'
             className='nav-link'
             setdata={setData}
+            value={currentUser?.profileInUse}
             label='Profile utilisé'
             options={profilesOptions}
             onChange={onProfileChange}
             styles={{ label: 'nav-input', option: 'nav-option' }}
           />
+          <LanguageSelector />
         </>
       }
       contentClass='drop-menu'

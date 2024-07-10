@@ -7,9 +7,7 @@ import PrimaryButton from '@/Components/Buttons/PrimaryButton';
 import AddProviderForm from './AddProviderForm';
 
 const useColumns = (reservations) => {
-  console.log(reservations);
-
-  const { post, patch } = useForm({});
+  const { patch } = useForm({});
 
   const confirmReservation = (id) => {
     patch(route('reservation.validate', { id: id }));
@@ -19,19 +17,19 @@ const useColumns = (reservations) => {
     const cols = [
       {
         field: 'id',
-        headerName: 'id',
+        headerName: 'ID',
         valueGetter: (row) => row?.id,
         renderCell: (row) => row?.id,
       },
       {
         field: 'user',
-        headerName: 'user',
+        headerName: t('user.label'),
         valueGetter: (row) => row?.user.name,
         renderCell: (row) => row?.user.name,
       },
       {
         field: 'appartement',
-        headerName: 'appartement',
+        headerName: t('apartment.label'),
         valueGetter: (row) => row?.apartment.name,
         renderCell: (row) => row?.apartment.name,
       },

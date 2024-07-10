@@ -9,22 +9,24 @@ const SimpleList = ({
   id,
   className,
   setdata,
-  label,
-  options,
   onChange,
+  value = '',
+  label,
+  placeholder,
+  options,
   disabled,
   styles,
 }) => {
   const [selectedOption, setSelectedOption] = useState();
 
   useEffect(() => {
-    setSelectedOption(options?.find((option) => !!option?.selected)?.label);
-  }, []);
+    setSelectedOption(options?.find((option) => option?.value === value));
+  }, [value, options]);
 
   const onClickChange = useCallback(
     (selected) => {
-      setSelectedOption(selected.label);
-      setdata(id, selected.value);
+      setSelectedOption(selected);
+      setdata && setdata(id, selected.value);
       onChange && onChange(selected);
     },
     [setdata]
@@ -37,7 +39,7 @@ const SimpleList = ({
         <>
           <InputLabel htmlFor={id} value={label} className={styles?.label} />
           <button id={id} type='button'>
-            {selectedOption}
+            {selectedOption?.label}
           </button>
         </>
       }
@@ -49,7 +51,7 @@ const SimpleList = ({
           className={clsx('p-0_5', styles?.option)}
           type='button'
         >
-          {option?.label}
+          {option?.label || placeholder || '...'}
         </button>
       ))}
       disabled={disabled}

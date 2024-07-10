@@ -7,7 +7,6 @@ import React from 'react';
 import { getUserName } from '@/utils/user';
 
 const ApartmentWindowFull = ({ apartment, storagePath, bg }) => {
-  console.log(apartment);
   return (
     <div key={apartment?.id} className={clsx('apartment-window-full', bg)}>
       <div className='infos'>

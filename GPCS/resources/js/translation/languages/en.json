@@ -1,0 +1,166 @@
+{
+    "appName": "GPCS",
+    "appLongName": "Grand Paris Caretaker Service",
+    "common": {
+        "address": "Address",
+        "back": "Back",
+        "client": "Client",
+        "connection": "Login",
+        "dateStart": "Start Date",
+        "dateEnd": "End Date",
+        "delete": "Delete",
+        "description": "Description",
+        "details": "Details",
+        "edit": "Edit",
+        "email": "Email Address",
+        "errorOccurred": "An error occurred",
+        "isActivated": "Is active",
+        "isNotActivated": "Is inactive",
+        "lang": "Language",
+        "modify": "Modify",
+        "name": "Name",
+        "other": "Other",
+        "password": "Password",
+        "postalCode": "Postal Code",
+        "save": "Save",
+        "street": "Street",
+        "success": "Action successful",
+        "successCreation": "Item created"
+    },
+    "civility": {
+        "F": "Ms.",
+        "f": "Miss",
+        "M": "Mr.",
+        "m": "Mister"
+    },
+    "profile": {
+        "admin": "Administrator",
+        "lessor": "Lessor",
+        "management": "Manager",
+        "provider": "Provider",
+        "traveler": "Traveler"
+    },
+    "chart": {
+        "sign": "Sign the charter",
+        "confirm": "I, the undersigned {{name}}, commit:",
+        "error": "The charter is not signed",
+        "firtsPara": "Your application to this service has been pre-selected to join GPCS and thus become a partner.",
+        "firtscommitment": "To participate in the various GPCS workshops to boost my search",
+        "success": "The charter has been signed"
+    },
+    "travelers": {
+        "a": "a"
+    },
+    "date": {
+        "calendar": "Calendar",
+        "year": "Year",
+        "month": {
+        "label": "Month",
+        "1": "Jan.",
+        "2": "Feb.",
+        "3": "Mar.",
+        "4": "Apr.",
+        "5": "May",
+        "6": "Jun.",
+        "7": "Jul.",
+        "8": "Aug.",
+        "9": "Sep.",
+        "10": "Oct.",
+        "11": "Nov.",
+        "12": "Dec."
+        },
+        "day": {
+        "0": "Monday",
+        "1": "Tuesday",
+        "2": "Wednesday",
+        "3": "Thursday",
+        "4": "Friday",
+        "5": "Saturday",
+        "6": "Sunday"
+        }
+    },
+    "emailVerified": {
+        "accessAccount": "Access your account",
+        "description": "You can now log in and complete the creation of your GPCS account.",
+        "goToLogin": "Return to the login page"
+    },
+    "fileTypes": {
+        "doc": "Doc",
+        "pdf": "PDF",
+        "url": "Link",
+        "video": "Video"
+    },
+    "signIn": {
+        "label": "Sign up",
+        "alreadyRegistered": "Already connected? Click here",
+        "password": {
+        "label": "Password",
+        "confirmLabel": "Confirm Password",
+        "info": "At least 8 characters, including 1 uppercase, 1 lowercase, 1 number, and 1 special character"
+        }
+    },
+    "login": {
+        "forgottenPassword": "Forgot Password",
+        "rememberMe": "Remember me"
+    },
+    "menu": {
+        "home": "Home",
+        "myApartments": "View my apartments",
+        "myReservations": "My reservations",
+        "unauthenticated": {
+        "login": "Login",
+        "signIn": "Sign up"
+        },
+        "admin": {
+        "apartments": "Apartments",
+        "managers": "List of Managers",
+        "users": "User List",
+        "tags": "Tag List",
+        "services": "Services",
+        "demandes": "Requests"
+        }
+    },
+    "user": {
+        "label": "User",
+        "list": "Client List",
+        "lastname": "Last Name",
+        "firstname": "First Name",
+        "profils": "User Profiles"
+    },
+    "apartment": {
+        "label": "Apartment",
+        "apartmentsToVerify": "Apartments to verify",
+        "askYours": "What about proposing yours?",
+        "nbPeople": "Number of people",
+        "noApartmentAvailable": "No apartment available...",
+        "noPictureAvailable": "No image available",
+        "perNight": "per night",
+        "priceMin": "Minimum price",
+        "priceMax": "Maximum price",
+        "rent": "Book",
+        "rentedBy": "Rented by"
+    },
+    "myApartment": {
+        "title": "My apartments",
+        "reservationOnMyApartment": "Reservation on my apartment",
+        "noApartments": "You have no apartment..."
+    },
+    "reservation": {
+        "label": "Reservations",
+        "recap": "Summary of my reservations",
+        "noReservationAdmin": "This client has made no reservations",
+        "noReservation": "You have no reservations at the moment"
+    },
+    "service": {
+        "noServices": "No existing services",
+        "datePriceChange": "Price change date",
+        "regularPrice": "Regular Price",
+        "create": "Create a service"
+    },
+    "tag": {
+        "create": "Create a tag",
+        "manage": "Manage tags",
+        "noTags": "There are no tags yet"
+    }
+}
+  
