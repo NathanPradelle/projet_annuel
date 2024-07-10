@@ -47,6 +47,8 @@ class FilePaths
     const MY_RESERVATION = 'Traveler/MyReservationPage/MyReservationPage';
     const MY_RESERVATIONS = 'Traveler/MyReservationsPage/MyReservationsPage';
 
+    const PAYMENT = 'Traveler/PaymentPage/PaymentPage';
+
     /* Images */
     const IMAGE_URL = "http://127.0.0.1:8000/Storage/";
 
