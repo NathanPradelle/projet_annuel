@@ -45,6 +45,11 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 
+    Route::get('/payment', [PaymentController::class, 'show'])->name('payment.show');
+    Route::post('/create-payment-intent', [PaymentController::class, 'createPaymentIntent'])
+        ->name('payment.createIntent');
+    Route::post('/reservation/save-informations', [ReservationController::class, 'saveInformations'])->name('reservation.saveInformations');
+
     Route::post('/messages', [MessageController::class, 'sendMessage']);
     Route::get('/chat/{user}', [MessageController::class, 'showChat'])->name('chat.show');
 
@@ -134,7 +139,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/fermetures/create', [ClosedPeriodController::class, 'create'])->name('fermeture.create');
         Route::post('/fermetures', [ClosedPeriodController::class, 'store'])->name('fermeture.store');
     });
-    Route::get('/payment', [PaymentController::class, 'payment']);
+
 
     Route::get('/factureclient/{id}', [FactureController::class, 'client'])->name('facture.client.id'); // need fix
 
@@ -143,7 +148,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/', [ApartmentController::class, 'list'])->name('apartment.list');
 
 
-Route::get('/create-payment-intent', [StripeController::class, 'createPaymentIntent']);
+
 
 Route::get('/check-table', [CheckTableController::class, 'checkTableBan']);
 
