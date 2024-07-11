@@ -267,7 +267,7 @@ class ApartmentController extends Controller
 
         $apartment->delete();
 
-        return redirect()->route('apartment.index')->with('message', 'Apartment deleted successfully');
+        return redirect()->back()->with('message', 'Apartment deleted successfully');
     }
 
     public function destroyImg($id): RedirectResponse
@@ -285,6 +285,18 @@ class ApartmentController extends Controller
         $appartement = Apartment::findOrFail($id);
 
         $appartement->activated = 1;
+
+        $appartement->save();
+
+        return redirect()->route("apartment.managerList")
+            ->with('success', "Appartement validé à jour avec succès");
+    }
+
+    public function devalidate($id){
+
+        $appartement = Apartment::findOrFail($id);
+
+        $appartement->activated = 0;
 
         $appartement->save();
 

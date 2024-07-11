@@ -246,16 +246,16 @@ class UserController extends Controller
 
     public function prestationRequest()
     {
-        return Inertia::render(FilePaths::USER);
+        return redirect()->route('apartment.list');
     }
 
     public function prestataireRequest()
     {
-        return Inertia::render(FilePaths::USER);
+        return redirect()->route('apartment.list');
     }
 
     public function bailleurRequest()
     {
-        return Inertia::render(FilePaths::USER);
+        return redirect()->route('apartment.list');
     }
 }

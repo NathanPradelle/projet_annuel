@@ -73,6 +73,7 @@ class Apartment extends Model
             'availability' =>  $this?->availability,
             'createdAt' =>  $this?->created_at,
             'updatedAt' =>  $this?->updated_at,
+            'activated' =>  $this?->activated,
 
             'user' => $this?->user,
             'images' => $this?->images->map(function ($image) {

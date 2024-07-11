@@ -25,7 +25,9 @@
     "save": "Enregistrer",
     "street": "Rue",
     "success": "Action réussi",
-    "successCreation": "Élément créé"
+    "successCreation": "Élément créé",
+    "unvalidate": "Dévalider",
+    "validate": "Valider"
   },
   "civility": {
     "F": "Mme.",

@@ -92,6 +92,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/apartments', [ApartmentController::class, 'managerList'])->name('apartment.managerList');
         Route::put('/apartment/{id}', [ApartmentController::class, 'validate'])->name('apartment.validate');
+        Route::put('/apartment/{id}', [ApartmentController::class, 'devalidate'])->name('apartment.devalidate');
     });
 
     Route::middleware(CheckUserProfile::class . ':isProvider')->group(function () {

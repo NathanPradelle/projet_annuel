@@ -1,3 +1,4 @@
+import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink } from '@inertiajs/inertia-react';
 import clsx from 'clsx';
 import { t } from 'i18next';
@@ -10,6 +11,18 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const ApartmentsToVerifyPage = ({ apartments, storagePath }) => {
   const { filteredApart, searchFields } = ApartmentsFilter(apartments);
+
+  const handleValidation = (id) => {
+    Inertia.put(route('apartment.validate', id));
+  };
+
+  const handleDevalidation = (id) => {
+    Inertia.put(route('apartment.devalidate', id));
+  };
+
+  const handleDelete = (id) => {
+    Inertia.delete(route('apartment.destroy', id));
+  };
 
   return (
     <AuthenticatedLayout
@@ -42,13 +55,21 @@ const ApartmentsToVerifyPage = ({ apartments, storagePath }) => {
                         ? t('common.isActivated')
                         : t('common.isNotActivated')}
                     </div>
-                    <SimpleButton to={route('apartment.show', apartment.id)}>
-                      {t('common.details')}
-                    </SimpleButton>
-                    <SimpleButton
-                      to={route('apartment.validate', apartment.id)}
-                    >
-                      valider
+                    {!apartment?.activated ? (
+                      <SimpleButton
+                        onClick={() => handleValidation(apartment?.id)}
+                      >
+                        {t('common.validate')}
+                      </SimpleButton>
+                    ) : (
+                      <SimpleButton
+                        onClick={() => handleDevalidation(apartment?.id)}
+                      >
+                        {t('common.unvalidate')}
+                      </SimpleButton>
+                    )}
+                    <SimpleButton onClick={() => handleDelete(apartment?.id)}>
+                      {t('common.delete')}
                     </SimpleButton>
                   </>
                 }
@@ -61,9 +82,6 @@ const ApartmentsToVerifyPage = ({ apartments, storagePath }) => {
             <p className='text-center text-gray-600 text-lg'>
               {t('apartment.noApartmentAvailable')}
             </p>
-            <InertiaLink href={route('apartment.create')} className='mt-4'>
-              {t('apartment.askYours')}
-            </InertiaLink>
           </>
         )}
       </div>

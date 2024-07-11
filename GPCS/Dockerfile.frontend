@@ -1,0 +1,30 @@
+# Dockerfile.frontend
+
+# Utiliser une image de base pour Node.js
+FROM node:20
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+# Copier les fichiers de l'application
+COPY ../package*.json .
+
+# Installer les dépendances de l'application
+RUN npm install
+
+# Copier le reste des fichiers de l'application
+COPY . .
+
+# Construire l'application pour la production
+# RUN npm run build
+
+RUN rm -rf node_modules
+RUN rm -rf package-lock.json
+
+RUN npm i
+
+# Exposer le port 3000
+EXPOSE 3000
+
+# Commande pour démarrer l'application
+CMD ["npm", "run", "dev"]

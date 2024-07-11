@@ -25,7 +25,9 @@
         "save": "Save",
         "street": "Street",
         "success": "Action successful",
-        "successCreation": "Item created"
+        "successCreation": "Item created",
+        "unvalidate": "UnValidate",
+        "validate": "Validate"
     },
     "civility": {
         "F": "Ms.",

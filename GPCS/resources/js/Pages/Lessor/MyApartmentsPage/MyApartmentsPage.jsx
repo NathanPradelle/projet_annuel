@@ -53,7 +53,6 @@ const MyApartmentsPage = ({ apartments, storagePath }) => {
                 storagePath={storagePath}
                 actions={
                   <>
-                    {' '}
                     <div
                       className={clsx(
                         'w-1_2 text-center',
